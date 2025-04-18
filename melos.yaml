@@ -9,3 +9,30 @@ sdkPath: .fvm/flutter_sdk
 command:
   bootstrap:
     usePubspecOverrides: true
+
+scripts:
+  tests:
+    run: melos exec --dir-exists=test -c 1 -- \
+      flutter test --no-pub
+    description: Run all tests
+
+  test:ask:
+    run: melos exec --dir-exists=test --fail-fast -c 1 -- \
+      flutter test --no-pub -r github
+    description: Prompts to select the package to test.
+    packageFilters:
+      flutter: false
+      dirExists: "test"
+
+  lint:
+    run: melos exec -- "fvm flutter analyze"
+    select-package:
+      flutter: true
+      dir-exists: "test"
+
+  l10n:
+    run: melos exec --dir-exists=test -c 1 -- \
+      flutter gen-l10n
+    select-package:
+      flutter: true
+      file-exists: "l10n.yaml"

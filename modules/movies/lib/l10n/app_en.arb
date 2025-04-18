@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "hello": "Hello Movies",
+  "@hello": {
+    "description": "The greeting message on the hello movies page"
+  }
+}
