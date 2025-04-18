@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: movies
+dependency_overrides:
+  movies:
+    path: modules/movies

@@ -1,0 +1,11 @@
+name: the_classic_movies_app
+
+packages:
+  - .
+  - modules/**
+
+sdkPath: .fvm/flutter_sdk
+
+command:
+  bootstrap:
+    usePubspecOverrides: true

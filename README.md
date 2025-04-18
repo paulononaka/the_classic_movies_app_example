@@ -1,16 +1,45 @@
-# the_classic_movies_app_example
+# The Classic Movies App
 
-A new Flutter project.
+A Flutter application for classic movies.
 
-## Getting Started
+## Project Structure
 
-This project is a starting point for a Flutter application.
+- **Main App**: Root application that integrates all modules
+- **Modules**:
+  - `movies`: Movies feature module
+  - `core`: Core utilities and shared functionality
+  - `design_system`: UI components and theming
 
-A few resources to get you started if this is your first Flutter project:
+## Development Setup
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Flutter
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project uses Flutter 3.22.x. It's recommended to use FVM (Flutter Version Management) to ensure you're using the correct Flutter version:
+
+```bash
+# Install FVM if you don't have it
+dart pub global activate fvm
+
+# Get the correct Flutter version
+fvm install
+
+# Use this version
+fvm use 3.22.2
+```
+
+### Melos
+
+```bash
+# Install Melos
+dart pub global activate melos
+
+# Bootstrap the project
+melos bootstrap
+```
+
+### Running the App
+
+```bash
+# Using FVM
+fvm flutter run
+```
