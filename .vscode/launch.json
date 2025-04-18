@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "the_classic_movies_app_example",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": " ---> Update Golden <---",
+            "request": "launch",
+            "type": "dart",
+            "codeLens": {
+                "for": [
+                    "run-test",
+                ]
+            },
+            "args": [
+                "--update-goldens"
+            ]
+        },
+        {
+            "name": " ---> Update All Goldens <---",
+            "request": "launch",
+            "type": "dart",
+            "codeLens": {
+                "for": [
+                    "run-test-file"
+                ]
+            },
+            "args": [
+                "--update-goldens"
+            ]
+        }
+    ]
+}

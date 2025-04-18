@@ -26,3 +26,5 @@ jobs:
 
       - name: Unit Test
         run: flutter test
+        env:
+          RUNNING_ON_CICD: true
