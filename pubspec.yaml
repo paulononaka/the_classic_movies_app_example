@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.6
+  design_system:
+    path: modules/design_system
   flutter:
     sdk: flutter
   flutter_localizations:

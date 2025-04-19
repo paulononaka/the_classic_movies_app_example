@@ -1,5 +1,4 @@
 library design_system;
 
-class Calculator {
-  int addOne(int value) => value + 1;
-}
+export 'theme/classic_movies_theme.dart';
+export 'theme/provider/classic_movies_theme_provider.dart';

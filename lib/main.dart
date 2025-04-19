@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movies/l10n/s.dart';
 import 'package:movies/dependencies.dart';
 import 'package:movies/movies.dart';
+import 'package:design_system/design_system.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,17 +21,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigator = dependencies.get<MoviesNavigator>();
 
-    return MaterialApp.router(
-      title: 'Movies App',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), useMaterial3: true),
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.supportedLocales,
-      routerConfig: navigator.config(),
+    return ClassicMoviesThemeProviderApp(
+      themeMode: ThemeMode.light,
+      builder: (themeMode, light, dark) => MaterialApp.router(
+        title: 'Classic Movies App',
+        theme: light,
+        darkTheme: dark,
+        themeMode: themeMode,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.supportedLocales,
+        routerConfig: navigator.config(),
+      ),
     );
   }
 }
