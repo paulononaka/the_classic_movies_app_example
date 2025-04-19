@@ -23,10 +23,19 @@ class MoviesModel {
   static MoviesModel fromJson(Map<String, dynamic> json) {
     return MoviesModel(
       page: json['page'] ?? 1,
-      results: (json['results'] as List<dynamic>?)?.map((e) => MovieModel.fromJson(e as Map<String, dynamic>)).toList() ?? [],
+      results: (json['results'] as List<dynamic>?)?.map((result) => MovieModel.fromJson(result as Map<String, dynamic>)).toList() ?? [],
       totalPages: json['total_pages'] ?? 0,
       totalResults: json['total_results'] ?? 0,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'page': page,
+      'results': results.map((result) => result.toJson()).toList(),
+      'total_pages': totalPages,
+      'total_results': totalResults,
+    };
   }
 
   @override

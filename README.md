@@ -50,3 +50,14 @@ melos bootstrap
 ```bash
 # Using FVM
 fvm flutter run
+```
+
+### Environment Variables
+
+This project uses environment variables for configuration. To set them up:
+
+1. Copy the `.env.example` file to create a `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
+2. Edit the `.env` file and replace `your_tmdb_api_key` with your actual TMDB API key

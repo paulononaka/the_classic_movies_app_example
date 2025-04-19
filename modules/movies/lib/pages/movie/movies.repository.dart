@@ -1,29 +1,26 @@
-import 'package:movies/pages/movie/models/movie.model.dart';
+import 'package:dio/dio.dart';
+import 'package:core/env.dart';
 
 import 'models/movies.model.dart';
 
 class MoviesRepository {
-  const MoviesRepository();
+  MoviesRepository({required Dio dio, required Env env})
+      : _dio = dio,
+        _env = env;
+
+  final Dio _dio;
+  final Env _env;
 
   Future<MoviesModel> fetchMovies({int page = 1}) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-
-    const int itemsPerPage = 10;
-    final int startIndex = (page - 1) * itemsPerPage;
-
-    return MoviesModel(
-      page: page,
-      results: List.generate(
-        page < itemsPerPage ? itemsPerPage : itemsPerPage * (page - itemsPerPage - 1),
-        (index) => MovieModel.fixture().copyWith(
-          id: startIndex + index + 1,
-          title: 'Test Movie ${startIndex + index + 1}',
-          backdropPath: '/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg',
-          posterPath: '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',
-        ),
-      ),
-      totalPages: 10,
-      totalResults: 100,
+    final response = await _dio.get(
+      '${_env.tmdbBaseUrl}/discover/movie',
+      queryParameters: {
+        'api_key': _env.tmdbApiKey,
+        'page': page,
+        'sort_by': 'popularity.desc',
+      },
     );
+
+    return MoviesModel.fromJson(response.data);
   }
 }
