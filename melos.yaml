@@ -9,6 +9,13 @@ command:
     usePubspecOverrides: true
 
 scripts:
+  all:
+    run: melos bootstrap && melos lint && melos tests
+
+  lint:
+    run: melos exec -- "fvm flutter analyze"
+
+
   tests:
     run: melos exec --dir-exists=test --fail-fast -- \
       flutter test --no-pub -r github --dart-define=RUNNING_ON_CI=true
@@ -30,12 +37,6 @@ scripts:
       flutter: true
       dirExists: test
 
-  lint:
-    run: melos exec -- "fvm flutter analyze"
-
   l10n:
     run: melos exec --dir-exists=test -c 1 -- \
       flutter gen-l10n
-    packageFilters:
-      flutter: true
-      fileExists: l10n.yaml

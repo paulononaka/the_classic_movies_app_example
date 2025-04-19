@@ -4,6 +4,8 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:movies/l10n/s.dart';
 
 class AppGoldenTester {
+  Future<void> setUpAll() async {}
+
   List<Device> get devices => [Device.iphone11];
 
   Widget appWrapper(final Widget widget) {

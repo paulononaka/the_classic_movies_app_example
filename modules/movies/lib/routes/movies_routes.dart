@@ -5,7 +5,7 @@ import 'package:movies/pages/movie_details/movie_details_page.dart';
 
 class MoviesHomeGoRoute extends GoRoute {
   MoviesHomeGoRoute({required super.path, required String super.name, super.routes})
-      : super(pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: MoviesPage()));
+      : super(pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: MoviesPage.create()));
 
   static void navigate(BuildContext context) {
     GoRouter.of(context).goNamed(MoviesNavigator.moviesHome);

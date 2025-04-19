@@ -1,0 +1,6 @@
+{
+  "appTitle": "The Classic Movies App",
+  "@appTitle": {
+    "description": "The application title"
+  }
+}
