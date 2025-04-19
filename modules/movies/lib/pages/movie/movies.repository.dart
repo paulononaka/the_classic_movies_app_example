@@ -5,15 +5,19 @@ import 'models/movies.model.dart';
 class MoviesRepository {
   const MoviesRepository();
 
-  Future<MoviesModel> fetchMovies() async {
-    await Future.delayed(const Duration(milliseconds: 2000));
+  Future<MoviesModel> fetchMovies({int page = 1}) async {
+    await Future.delayed(const Duration(milliseconds: 200));
+
+    const int itemsPerPage = 10;
+    final int startIndex = (page - 1) * itemsPerPage;
+
     return MoviesModel(
-      page: 1,
+      page: page,
       results: List.generate(
-        40,
+        page < itemsPerPage ? itemsPerPage : itemsPerPage * (page - itemsPerPage - 1),
         (index) => MovieModel.fixture().copyWith(
-          id: index + 1,
-          title: 'Test Movie ${index + 1}',
+          id: startIndex + index + 1,
+          title: 'Test Movie ${startIndex + index + 1}',
           backdropPath: '/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg',
           posterPath: '/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',
         ),

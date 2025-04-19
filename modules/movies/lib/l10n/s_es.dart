@@ -9,5 +9,11 @@ class SEs extends S {
   SEs([String locale = 'es']) : super(locale);
 
   @override
-  String get hello => 'Hola Películas';
+  String get movies_page_app_bar => 'Hola Películas';
+
+  @override
+  String get movies_page_title => 'Películas';
+
+  @override
+  String get movies_page_error_message => 'Algo salió mal';
 }

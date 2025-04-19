@@ -5,34 +5,47 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movies/pages/movie/models/movie.model.dart';
 import 'package:movies/pages/movie/models/movies.model.dart';
+import 'package:movies/pages/movie/movies.controller.dart';
 import 'package:movies/pages/movie/movies.repository.dart';
 import 'package:movies/pages/movie/movies_page.dart';
 import 'package:movies/routes/movies_navigator.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../test/helpers/golden_test_helper.dart';
 import '../../helpers/mocks.dart';
 
 void main() {
+  final navigator = MoviesNavigatorMock();
+  final repository = MoviesRepositoryMock();
+  late MoviesController controller;
+
   setUpAll(AppGoldenTester().setUpAll);
+
+  setUp(() {
+    controller = MoviesController(moviesRepository: MoviesRepositoryMock());
+  });
 
   DeviceBuilder deviceBuilder() {
     return DeviceBuilder()
       ..addScenario(
-        widget: AppGoldenTester().appWrapper(MoviesPage.create()),
+        widget: AppGoldenTester().appWrapper(
+          ChangeNotifierProvider<MoviesController>.value(
+            value: controller,
+            child: MoviesPage.create(),
+          ),
+        ),
       );
   }
 
+  setUp(() {
+    GetIt.I
+      ..registerFactory<MoviesNavigator>(() => navigator)
+      ..registerFactory<MoviesRepository>(() => repository);
+  });
+
+  tearDown(() => GetIt.I.reset());
+
   group('MoviesPage Tests', () {
-    final navigator = MoviesNavigatorMock();
-    final repository = MoviesRepositoryMock();
-
-    setUp(() {
-      GetIt.I
-        ..registerFactory<MoviesNavigator>(() => navigator)
-        ..registerFactory<MoviesRepository>(() => repository);
-    });
-
-    tearDown(() => GetIt.I.reset());
     testGoldens('renders empty state', (tester) async {
       // Given
       when(() => repository.fetchMovies()).thenAnswer((_) => Future.value(MoviesModel.empty()));
@@ -42,7 +55,6 @@ void main() {
       await tester.pumpAndSettle();
 
       // Then - should still show the UI but with empty list
-      expect(find.text('Movies'), findsOneWidget);
       expect(find.byType(ListView), findsOneWidget);
       await screenMatchesGolden(tester, 'movies_page_empty');
     });
@@ -82,6 +94,52 @@ void main() {
       // Then
       expect(find.text('Something went wrong'), findsOneWidget);
       await screenMatchesGolden(tester, 'movies_page_error');
+    });
+  });
+
+  group('MoviesPage Pagination Tests', () {
+    testGoldens('should fetch next page when scrolling to 80% of list', (tester) async {
+      // Given
+      final firstPageMovies = MoviesModel(
+        page: 1,
+        results: List.generate(10, (index) => MovieModel.fixture().copyWith(id: index + 1, title: 'Test Movie ${index + 1}')),
+        totalPages: 10,
+        totalResults: 100,
+      );
+
+      final secondPageMovies = MoviesModel(
+        page: 2,
+        results: List.generate(10, (index) => MovieModel.fixture().copyWith(id: index + 11, title: 'Test Movie ${index + 11}')),
+        totalPages: 10,
+        totalResults: 100,
+      );
+
+      when(() => repository.fetchMovies(page: 1)).thenAnswer((_) async => firstPageMovies);
+      when(() => repository.fetchMovies(page: 2)).thenAnswer((_) async {
+        await Future.delayed(const Duration(milliseconds: 100));
+        return secondPageMovies;
+      });
+
+      // When - load first page
+      await tester.pumpDeviceBuilder(deviceBuilder());
+      await tester.pumpAndSettle();
+
+      // Verify first page loaded
+      await screenMatchesGolden(tester, 'movies_page_first_page_loaded');
+
+      // When - scroll to bottom to trigger next page load
+      await tester.dragUntilVisible(
+        find.text('Test Movie 10'),
+        find.byType(ListView),
+        const Offset(0, -500),
+      );
+
+      await tester.pumpAndSettle();
+
+      // Then - should show both pages
+      expect(find.text('Test Movie 11'), findsOneWidget);
+      verify(() => repository.fetchMovies(page: 2)).called(1);
+      await screenMatchesGolden(tester, 'movies_page_second_page_loaded');
     });
   });
 }

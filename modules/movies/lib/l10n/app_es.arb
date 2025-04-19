@@ -1,4 +1,6 @@
 {
   "@@locale": "es",
-  "hello": "Hola Películas"
+  "movies_page_app_bar": "Hola Películas",
+  "movies_page_title": "Películas",
+  "movies_page_error_message": "Algo salió mal"
 }

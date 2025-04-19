@@ -95,11 +95,23 @@ abstract class S {
     Locale('es')
   ];
 
-  /// No description provided for @hello.
+  /// No description provided for @movies_page_app_bar.
   ///
   /// In en, this message translates to:
   /// **'Hello Movies'**
-  String get hello;
+  String get movies_page_app_bar;
+
+  /// No description provided for @movies_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Movies'**
+  String get movies_page_title;
+
+  /// No description provided for @movies_page_error_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get movies_page_error_message;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

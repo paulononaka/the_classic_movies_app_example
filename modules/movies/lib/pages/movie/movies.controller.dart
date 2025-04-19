@@ -19,16 +19,47 @@ class MoviesController with ChangeNotifier {
   final MoviesRepository moviesRepository;
   MoviesControllerStatus status = MoviesControllerStatus.loading;
   List<MovieModel> movies = [];
+  int _currentPage = 0;
+  bool _isLoadingMore = false;
+  bool _hasReachedMax = false;
+
+  bool get isLoadingMore => _isLoadingMore;
+  bool get hasReachedMax => _hasReachedMax;
 
   Future<void> fetchInitialData() async {
     _notifyMoviesLoading();
     try {
-      final response = await moviesRepository.fetchMovies();
+      _currentPage = 1;
+      final response = await moviesRepository.fetchMovies(page: _currentPage);
       movies = response.results;
+      _hasReachedMax = _currentPage >= response.totalPages;
       _notifyMoviesSuccess();
     } catch (ex, stacktrace) {
       CMALogger.e('Error while fetching initial movies data', ex: ex, stacktrace: stacktrace);
       _notifyMoviesError();
+    }
+  }
+
+  Future<void> fetchNextPage() async {
+    if (_isLoadingMore || _hasReachedMax) return;
+    
+    _isLoadingMore = true;
+    notifyListeners();
+    
+    try {
+      final nextPage = _currentPage + 1;
+      final response = await moviesRepository.fetchMovies(page: nextPage);
+      
+      _currentPage = nextPage;
+      movies = [...movies, ...response.results];
+      _hasReachedMax = _currentPage >= response.totalPages;
+      
+      _isLoadingMore = false;
+      notifyListeners();
+    } catch (ex, stacktrace) {
+      CMALogger.e('Error while fetching next page of movies', ex: ex, stacktrace: stacktrace);
+      _isLoadingMore = false;
+      notifyListeners();
     }
   }
 

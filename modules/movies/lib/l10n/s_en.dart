@@ -9,5 +9,11 @@ class SEn extends S {
   SEn([String locale = 'en']) : super(locale);
 
   @override
-  String get hello => 'Hello Movies';
+  String get movies_page_app_bar => 'Hello Movies';
+
+  @override
+  String get movies_page_title => 'Movies';
+
+  @override
+  String get movies_page_error_message => 'Something went wrong';
 }
