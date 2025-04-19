@@ -45,6 +45,7 @@ app.*.map.json
 
 # Automated tests related
 **/test/**/failures/
+**/coverage
 
 # FVM Version Cache
 .fvm/

@@ -15,22 +15,27 @@ scripts:
     description: Run all tests
 
   test:ask:
-    run: melos exec --dir-exists=test --fail-fast -c 1 -- \
+    run: melos exec --fail-fast -c 1 -- \
       flutter test --no-pub -r github
     description: Prompts to select the package to test.
     packageFilters:
-      flutter: false
-      dirExists: "test"
+      flutter: true
+      dirExists: test
+
+  update-golden:
+    run: rm -rf **/test/golden_test/failures |
+      rm -rf **/coverage |
+      melos exec -- "fvm flutter test --test-randomize-ordering-seed random --update-goldens --tags=golden --coverage"
+    packageFilters:
+      flutter: true
+      dirExists: test
 
   lint:
     run: melos exec -- "fvm flutter analyze"
-    select-package:
-      flutter: true
-      dir-exists: "test"
 
   l10n:
     run: melos exec --dir-exists=test -c 1 -- \
       flutter gen-l10n
-    select-package:
+    packageFilters:
       flutter: true
-      file-exists: "l10n.yaml"
+      fileExists: l10n.yaml

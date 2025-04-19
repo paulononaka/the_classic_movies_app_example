@@ -1,4 +1,6 @@
-# melos_managed_dependency_overrides: movies
+# melos_managed_dependency_overrides: movies,design_system
 dependency_overrides:
   movies:
     path: modules/movies
+  design_system:
+    path: modules/design_system
