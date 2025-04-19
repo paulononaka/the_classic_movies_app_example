@@ -10,6 +10,14 @@ A Flutter application for classic movies.
   - `core`: Core utilities and shared functionality
   - `design_system`: UI components and theming
 
+## Libraries
+
+- **Navigation**: go_router
+- **Dependency Injection**: get_it
+- **Internationalization**: intl
+- **Dev Tools**: melos, fvm
+- **Testing**: flutter_test, golden_toolkit
+
 ## Development Setup
 
 ### Flutter
@@ -42,4 +50,3 @@ melos bootstrap
 ```bash
 # Using FVM
 fvm flutter run
-```

@@ -1,3 +1,4 @@
 library movies;
 
-export 'src/presentation/pages/hello_movies_page.dart';
+export 'pages/movie/movies_page.dart';
+export 'routes/movies_navigator.dart';

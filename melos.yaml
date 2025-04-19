@@ -4,15 +4,13 @@ packages:
   - .
   - modules/**
 
-sdkPath: .fvm/flutter_sdk
-
 command:
   bootstrap:
     usePubspecOverrides: true
 
 scripts:
   tests:
-    run: melos exec --dir-exists=test -c 1 -- \
+    run: melos exec --dir-exists=test --fail-fast -- \
       flutter test --no-pub
     description: Run all tests
 

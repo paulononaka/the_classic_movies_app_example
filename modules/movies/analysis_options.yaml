@@ -1,0 +1,12 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/l10n"
+linter:
+  rules:
+    sort_pub_dependencies: true
+    lines_longer_than_80_chars: false
+
+formatting:
+  line_length: 170

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:movies/l10n/s.dart';
+import 'package:movies/dependencies.dart';
 import 'package:movies/movies.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final dependencies = AppDependencies();
+  await dependencies.init();
+
   runApp(const MyApp());
 }
 
@@ -12,12 +18,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final navigator = dependencies.get<MoviesNavigator>();
+
+    return MaterialApp.router(
       title: 'Movies App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), useMaterial3: true),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -25,7 +30,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.supportedLocales,
-      home: const HelloMoviesPage(),
+      routerConfig: navigator.config(),
     );
   }
 }
