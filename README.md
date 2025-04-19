@@ -22,7 +22,7 @@ A Flutter application for classic movies.
 
 ### Flutter
 
-This project uses Flutter 3.22.2. It's recommended to use FVM (Flutter Version Management) to ensure you're using the correct Flutter version:
+This project uses Flutter 3.29.3. It's recommended to use FVM (Flutter Version Management) to ensure you're using the correct Flutter version:
 
 ```bash
 # Install FVM if you don't have it
@@ -32,7 +32,7 @@ dart pub global activate fvm
 fvm install
 
 # Use this version
-fvm use 3.22.2
+fvm use 3.29.3
 ```
 
 ### Melos

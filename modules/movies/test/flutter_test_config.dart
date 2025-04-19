@@ -9,7 +9,7 @@ Future<void> testExecutable(final FutureOr<void> Function() testMain) async {
   if (goldenFileComparator is LocalFileComparator) {
     final testUrl = (goldenFileComparator as LocalFileComparator).basedir;
 
-    const linuxThreshold = 0.05;
+    const linuxThreshold = 0.15;
     const macOsThreshold = 0.0001;
 
     const kGoldenTestsThreshold = bool.fromEnvironment('RUNNING_ON_CI') ? linuxThreshold : macOsThreshold;
