@@ -2,29 +2,37 @@ name: dev
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v2
+      - uses: kuhnroyal/flutter-fvm-config-action/setup@v3
         with:
-          flutter-version: "3.22.2"
-          channel: "stable"
+          cache: true
+          pub-cache: true
 
-      - name: Pub get
-        run: flutter pub get
+      - name: Install FVM
+        run: |
+          dart pub global activate fvm
+          echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"
+
+      - name: Warm FVM cache
+        run: |
+          fvm install --setup --skip-pub-get
+          fvm dart pub global activate melos
+
+      - name: Bootstrap packages
+        run: melos bootstrap
 
       - name: Lint
-        run: flutter analyze
+        run: melos lint
 
-      - name: Unit Test
-        run: flutter test
+      - name: Unit tests
         env:
           RUNNING_ON_CICD: true
+        run: melos tests
