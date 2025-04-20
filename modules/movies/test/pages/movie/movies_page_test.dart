@@ -1,3 +1,4 @@
+import 'package:core/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -40,6 +41,7 @@ void main() {
   setUp(() {
     GetIt.I
       ..registerFactory<MoviesNavigator>(() => navigator)
+      ..registerFactory<Env>(() => EnvMock())
       ..registerFactory<MoviesRepository>(() => repository);
   });
 

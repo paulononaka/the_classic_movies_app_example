@@ -14,6 +14,7 @@ class AppDependencies {
     dependencies
       ..allowReassignment = true
       ..registerFactory<MoviesNavigator>(() => MoviesNavigator())
-      ..registerFactory<MoviesRepository>(() => MoviesRepository(dio: Dio(), env: Env()));
+      ..registerFactory<Env>(() => Env())
+      ..registerFactory<MoviesRepository>(() => MoviesRepository(dio: Dio(), env: dependencies.get<Env>()));
   }
 }

@@ -61,3 +61,8 @@ This project uses environment variables for configuration. To set them up:
    cp .env.example .env
    ```
 2. Edit the `.env` file and replace `your_tmdb_api_key` with your actual TMDB API key
+
+The following environment variables are used:
+- `TMDB_API_KEY`: Your TMDB API key for authentication
+- `TMDB_BASE_URL`: Base URL for TMDB API requests (default: https://api.themoviedb.org/3)
+- `TMDB_IMAGE_URL`: Base URL for TMDB image requests (default: https://image.tmdb.org/t/p/)

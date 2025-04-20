@@ -32,8 +32,12 @@ jobs:
       - name: Setup Environment Variables
         run: |
           echo "TMDB_API_KEY=$TMDB_API_KEY" > .env
+          echo "TMDB_BASE_URL=$TMDB_BASE_URL" >> .env
+          echo "TMDB_IMAGE_URL=$TMDB_IMAGE_URL" >> .env
         env:
           TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          TMDB_BASE_URL: https://api.themoviedb.org/3
+          TMDB_IMAGE_URL: https://image.tmdb.org/t/p/
 
       - name: Lint
         run: melos lint

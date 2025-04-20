@@ -36,7 +36,7 @@ class SEn extends S {
   String get movie_details_tab_about => 'About Movie';
 
   @override
-  String get movie_details_tab_cast => 'Cast';
+  String get movie_details_tab_produced_by => 'Produced By';
 
   @override
   String get movie_details_overview => 'Overview';

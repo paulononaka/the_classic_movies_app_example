@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movies/dependencies.dart';
 import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
 import 'package:core/env.dart';
-import 'package:movies/dependencies.dart';
 
 class ProducedByTabWidget extends StatelessWidget {
+  final MovieDetailModel movieDetail;
   ProducedByTabWidget({super.key, required this.movieDetail});
 
-  final MovieDetailModel movieDetail;
   final env = dependencies.get<Env>();
 
   @override

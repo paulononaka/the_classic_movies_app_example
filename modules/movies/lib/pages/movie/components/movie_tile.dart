@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
 import 'package:movies/routes/movies_navigator.dart';
 import '../models/movie.model.dart';
+import 'package:core/env.dart';
 
 class MovieTile extends StatelessWidget {
+  MovieTile({super.key, required this.movie, this.isLoading = false});
+
+  final navigator = dependencies.get<MoviesNavigator>();
   final MovieModel movie;
   final bool isLoading;
 
-  const MovieTile({
-    super.key,
-    required this.movie,
-    this.isLoading = false,
-  });
-
   @override
   Widget build(BuildContext context) {
-    final navigator = dependencies.get<MoviesNavigator>();
-
     return InkWell(
       onTap: () => navigator.navigateToMovieDetails(context, movie.id),
       child: Container(
@@ -77,12 +73,10 @@ class MovieTileDetails extends StatelessWidget {
 }
 
 class MovieTilePoster extends StatelessWidget {
-  const MovieTilePoster({
-    super.key,
-    required this.movie,
-  });
+  MovieTilePoster({super.key, required this.movie});
 
   final MovieModel movie;
+  final env = dependencies.get<Env>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +86,7 @@ class MovieTilePoster extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.shade300,
         borderRadius: BorderRadius.circular(4),
-        image: movie.posterPath != null ? DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w200${movie.posterPath}'), fit: BoxFit.cover) : null,
+        image: movie.posterPath != null ? DecorationImage(image: NetworkImage('${env.tmdbImageUrl}w200${movie.posterPath}'), fit: BoxFit.cover) : null,
       ),
       child: movie.posterPath == null ? const Icon(Icons.movie, color: Colors.grey) : null,
     );

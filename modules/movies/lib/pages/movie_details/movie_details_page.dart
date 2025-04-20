@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
 import 'package:movies/pages/movie_details/components/movie_details_widget.dart';
 import 'package:movies/pages/movie_details/components/movie_header_widget.dart';
-import 'package:design_system/components/silver_app_bar_widget.dart';
 import 'package:movies/pages/movie_details/components/tab_bar_widget.dart';
 import 'package:movies/pages/movie_details/components/tab_content_widget.dart';
 import 'package:movies/repositories/movies.repository.dart';
@@ -58,23 +57,20 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> with SingleTickerPr
           ? const Center(child: CircularProgressIndicator())
           : controller.status.isError
               ? Center(child: Text(S.of(context)!.movie_details_error_loading, style: Theme.of(context).textTheme.bodyMedium))
-              : SafeArea(
-                  child: CustomScrollView(
-                    slivers: [
-                      SilverAppBarWidget(context: context, title: S.of(context)!.movie_details_title),
-                      SliverToBoxAdapter(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MovieHeaderWidget(movieDetail: movieDetail),
-                            MovieDetailsWidget(movieDetail: movieDetail),
-                            TabBarWidget(tabController: _tabController),
-                            TabContentWidget(tabController: _tabController, movieDetail: movieDetail),
-                          ],
-                        ),
+              : CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MovieHeaderWidget(movieDetail: movieDetail),
+                          MovieDetailsWidget(movieDetail: movieDetail),
+                          TabBarWidget(tabController: _tabController),
+                          TabContentWidget(tabController: _tabController, movieDetail: movieDetail),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
     );
   }

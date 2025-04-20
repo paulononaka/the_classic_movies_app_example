@@ -13,7 +13,7 @@ class MovieDetailModel {
   final List<Genre> genres;
   final String status;
   final String tagline;
-  final List<CastMember> cast;
+  final List<ProductionCompany> productionCompanies;
 
   const MovieDetailModel({
     required this.adult,
@@ -30,7 +30,7 @@ class MovieDetailModel {
     required this.genres,
     required this.status,
     required this.tagline,
-    required this.cast,
+    required this.productionCompanies,
   });
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) {
@@ -49,7 +49,7 @@ class MovieDetailModel {
       genres: (json['genres'] as List<dynamic>?)?.map((e) => Genre.fromJson(e as Map<String, dynamic>)).toList() ?? [],
       status: json['status'] ?? '',
       tagline: json['tagline'] ?? '',
-      cast: [],
+      productionCompanies: (json['production_companies'] as List<dynamic>?)?.map((e) => ProductionCompany.fromJson(e as Map<String, dynamic>)).toList() ?? [],
     );
   }
 
@@ -73,7 +73,7 @@ class MovieDetailModel {
       genres: [],
       status: '',
       tagline: '',
-      cast: [],
+      productionCompanies: [],
     );
   }
 
@@ -98,20 +98,18 @@ class MovieDetailModel {
       ],
       status: 'Released',
       tagline: 'Human traffickers beware.',
-      cast: [
-        CastMember(
-          id: 1,
-          name: 'Mark Wahlberg',
-          profilePath: '',
-          character: 'Levon Cade',
-          rating: 7.5,
+      productionCompanies: [
+        ProductionCompany(
+          id: 118475,
+          name: 'Cedar Park Entertainment',
+          logoPath: '',
+          originCountry: 'US',
         ),
-        CastMember(
-          id: 2,
-          name: 'Rhys Coiro',
-          profilePath: '',
-          character: 'Davenport',
-          rating: 6.8,
+        ProductionCompany(
+          id: 219295,
+          name: 'BlockFilm',
+          logoPath: '',
+          originCountry: 'US',
         ),
       ],
     );
@@ -135,28 +133,25 @@ class Genre {
   }
 }
 
-class CastMember {
+class ProductionCompany {
   final int id;
   final String name;
-  final String profilePath;
-  final String character;
-  final double rating;
+  final String logoPath;
+  final String originCountry;
 
-  CastMember({
+  ProductionCompany({
     required this.id,
     required this.name,
-    required this.profilePath,
-    required this.character,
-    required this.rating,
+    required this.logoPath,
+    required this.originCountry,
   });
 
-  factory CastMember.fromJson(Map<String, dynamic> json) {
-    return CastMember(
+  factory ProductionCompany.fromJson(Map<String, dynamic> json) {
+    return ProductionCompany(
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
-      profilePath: json['profile_path'] ?? '',
-      character: json['character'] ?? '',
-      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+      logoPath: json['logo_path'] ?? '',
+      originCountry: json['origin_country'] ?? '',
     );
   }
 }

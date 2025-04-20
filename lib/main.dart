@@ -11,16 +11,16 @@ void main() async {
   final dependencies = AppDependencies();
   await dependencies.init();
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final navigator = dependencies.get<MoviesNavigator>();
 
   @override
   Widget build(BuildContext context) {
-    final navigator = dependencies.get<MoviesNavigator>();
-
     return ClassicMoviesThemeProviderApp(
       initialThemeMode: ThemeMode.light,
       builder: (themeMode, light, dark) => MaterialApp.router(

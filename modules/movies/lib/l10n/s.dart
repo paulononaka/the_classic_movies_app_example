@@ -149,11 +149,11 @@ abstract class S {
   /// **'About Movie'**
   String get movie_details_tab_about;
 
-  /// No description provided for @movie_details_tab_cast.
+  /// No description provided for @movie_details_tab_produced_by.
   ///
   /// In en, this message translates to:
-  /// **'Cast'**
-  String get movie_details_tab_cast;
+  /// **'Produced By'**
+  String get movie_details_tab_produced_by;
 
   /// No description provided for @movie_details_overview.
   ///

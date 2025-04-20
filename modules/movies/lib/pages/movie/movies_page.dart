@@ -4,6 +4,7 @@ import 'package:movies/movies.dart';
 import 'package:movies/repositories/movies.repository.dart';
 import 'package:provider/provider.dart';
 import 'package:design_system/design_system.dart';
+import 'package:core/env.dart';
 import '../../l10n/s.dart';
 import 'models/movie.model.dart';
 import 'movies.controller.dart';
@@ -25,6 +26,7 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   final scrollController = ScrollController();
   final navigator = dependencies.get<MoviesNavigator>();
+  final env = dependencies.get<Env>();
 
   @override
   void initState() {
@@ -119,9 +121,8 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _buildMovieListItem(MovieModel movie) {
-    final navigator = dependencies.get<MoviesNavigator>();
     final releaseYear = movie.releaseDate.isNotEmpty ? movie.releaseDate.substring(0, 4) : '';
-    final posterUrl = movie.posterPath != null ? 'https://image.tmdb.org/t/p/w200${movie.posterPath}' : null;
+    final posterUrl = movie.posterPath != null ? '${env.tmdbImageUrl}w200${movie.posterPath}' : null;
 
     return MovieListItem(
       title: movie.title,

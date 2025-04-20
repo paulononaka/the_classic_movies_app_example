@@ -36,7 +36,7 @@ class SEs extends S {
   String get movie_details_tab_about => 'Sobre la Película';
 
   @override
-  String get movie_details_tab_cast => 'Reparto';
+  String get movie_details_tab_produced_by => 'Producido Por';
 
   @override
   String get movie_details_overview => 'Resumen';

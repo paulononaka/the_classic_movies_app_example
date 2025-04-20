@@ -1,3 +1,4 @@
+import 'package:core/env.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -10,7 +11,6 @@ import '../../../../../test/helpers/golden_test_helper.dart';
 import '../../helpers/mocks.dart';
 
 void main() {
-  final navigator = MoviesNavigatorMock();
   final repository = MoviesRepositoryMock();
 
   setUpAll(AppGoldenTester().setUpAll);
@@ -21,7 +21,8 @@ void main() {
 
   setUp(() {
     GetIt.I
-      ..registerFactory<MoviesNavigator>(() => navigator)
+      ..registerFactory<MoviesNavigator>(() => MoviesNavigatorMock())
+      ..registerFactory<Env>(() => EnvMock())
       ..registerFactory<MoviesRepository>(() => repository);
   });
 
@@ -39,6 +40,23 @@ void main() {
       await tester.pumpAndSettle();
 
       await screenMatchesGolden(tester, 'movie_details_page');
+    });
+
+    testGoldens('renders Produced By tab correctly', (final tester) async {
+      // Given
+      final testMovieDetail = MovieDetailModel.fixture();
+
+      when(() => repository.fetchMovieDetails(movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
+
+      // When
+      await tester.pumpDeviceBuilder(deviceBuilder());
+      await tester.pumpAndSettle();
+
+      // Tap on the Produced By tab
+      await tester.tap(find.text('Produced By'));
+      await tester.pumpAndSettle();
+
+      await screenMatchesGolden(tester, 'movie_details_produced_by_tab');
     });
   });
 }

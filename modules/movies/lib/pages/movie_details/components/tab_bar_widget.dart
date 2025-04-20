@@ -14,7 +14,7 @@ class TabBarWidget extends StatelessWidget {
         controller: _tabController,
         tabs: [
           Tab(text: S.of(context)!.movie_details_tab_about),
-          Tab(text: S.of(context)!.movie_details_tab_cast),
+          Tab(text: S.of(context)!.movie_details_tab_produced_by),
         ],
       ),
     );

@@ -26,6 +26,13 @@ class MoviesRepository {
   }
 
   Future<MovieDetailModel> fetchMovieDetails({required int movieId}) async {
-    return MovieDetailModel.fixture();
+    final response = await _dio.get(
+      '${_env.tmdbBaseUrl}/movie/$movieId',
+      queryParameters: {
+        'api_key': _env.tmdbApiKey,
+      },
+    );
+
+    return MovieDetailModel.fromJson(response.data);
   }
 }

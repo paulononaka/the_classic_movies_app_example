@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/pages/movie_details/components/about_movie_tab_widget.dart';
-import 'package:movies/pages/movie_details/components/cast_tab_widget.dart';
+import 'package:movies/pages/movie_details/components/produced_by_tab_widget.dart';
 import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
 
 class TabContentWidget extends StatelessWidget {
@@ -17,7 +17,7 @@ class TabContentWidget extends StatelessWidget {
         controller: _tabController,
         children: [
           AboutMovieTabWidget(movieDetail: movieDetail),
-          CastTabWidget(movieDetail: movieDetail),
+          ProducedByTabWidget(movieDetail: movieDetail),
         ],
       ),
     );
