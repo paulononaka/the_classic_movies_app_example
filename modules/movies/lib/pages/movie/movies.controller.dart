@@ -28,8 +28,8 @@ class MoviesController with ChangeNotifier {
       } else {
         _setState(MoviesSuccessState(movies: movies, currentPage: currentPage, hasReachedMax: hasReachedMax));
       }
-    } on NetworkException catch (e, stacktrace) {
-      CMALogger.e('Network error while fetching initial movies data', ex: e, stacktrace: stacktrace);
+    } on NetworkException catch (e) {
+      CMALogger.d('Network error while fetching initial movies data');
       _setState(MoviesNetworkErrorState(message: e.message));
     } catch (ex, stacktrace) {
       CMALogger.e('Error while fetching initial movies data', ex: ex, stacktrace: stacktrace);
@@ -55,8 +55,8 @@ class MoviesController with ChangeNotifier {
         currentPage: nextPage,
         hasReachedMax: nextPage >= response.totalPages,
       ));
-    } on NetworkException catch (e, stacktrace) {
-      CMALogger.e('Network error while fetching next page of movies', ex: e, stacktrace: stacktrace);
+    } on NetworkException catch (e) {
+      CMALogger.d('Network error while fetching next page of movies');
       _setState(MoviesNetworkErrorState(message: e.message));
     } catch (ex, stacktrace) {
       CMALogger.e('Error while fetching next page of movies', ex: ex, stacktrace: stacktrace);

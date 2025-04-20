@@ -1,4 +1,5 @@
 import 'package:core/env.dart';
+import 'package:core/session_tracker_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
@@ -26,6 +27,11 @@ class BuildContextMock extends Mock implements BuildContext {
 class BuildContextMockNotMounted extends Mock implements BuildContext {
   @override
   bool get mounted => false;
+}
+
+class SessionTrackerServiceMock extends Mock implements SessionTrackerService {
+  @override
+  String get sessionId => 'session_id';
 }
 
 class DioMock extends Mock implements Dio {}

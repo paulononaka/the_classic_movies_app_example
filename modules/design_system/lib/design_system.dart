@@ -10,3 +10,4 @@ export 'components/movie_list_item.dart';
 export 'components/app_error_widget.dart';
 export 'components/loading_widget.dart';
 export 'components/empty_state_widget.dart';
+export 'ds_dependencies.dart';

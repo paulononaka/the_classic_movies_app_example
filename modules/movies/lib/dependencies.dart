@@ -1,4 +1,4 @@
-import 'package:core/env.dart';
+import 'package:core/core.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -15,7 +15,11 @@ class AppDependencies {
       ..allowReassignment = true
       ..registerFactory<MoviesNavigator>(() => MoviesNavigator())
       ..registerFactory<Env>(() => Env())
-      ..registerFactory<Dio>(() => Dio());
+      ..registerFactory<Dio>(() {
+        final dio = Dio();
+        dio.addSentry();
+        return dio;
+      });
 
     final moviesDependencies = MoviesDependencies();
     await moviesDependencies.init();

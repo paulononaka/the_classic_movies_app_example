@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:design_system/theme/extensions/classic_movies_app_theme_extension.dart';
 import 'package:design_system/l10n/s.dart';
+import 'package:core/core.dart';
+import 'package:get_it/get_it.dart';
 
 class AppErrorWidget extends StatelessWidget {
-  const AppErrorWidget({super.key, required this.message, this.onRetry, this.onBack});
+  AppErrorWidget({super.key, required this.message, this.onRetry, this.onBack});
 
   final String message;
   final VoidCallback? onRetry;
   final VoidCallback? onBack;
+
+  final sessionTracker = GetIt.instance<SessionTrackerService>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,11 @@ class AppErrorWidget extends StatelessWidget {
           const Icon(Icons.error_outline, color: Colors.red, size: 60),
           const SizedBox(height: 16),
           Text(message, style: TextStyle(color: themeExtension?.textLight, fontSize: 16), textAlign: TextAlign.center),
+          SelectableText(
+            sessionTracker.sessionId,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: themeExtension?.textLight, fontSize: 16),
+          ),
           if (onRetry != null) ...[const SizedBox(height: 24), ElevatedButton(onPressed: onRetry, child: Text(S.of(context)!.retry))],
           if (onBack != null) ...[
             const SizedBox(height: 16),

@@ -7,6 +7,8 @@ environment:
   sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
+  core:
+    path: modules/core
   cupertino_icons: ^1.0.6
   design_system:
     path: modules/design_system

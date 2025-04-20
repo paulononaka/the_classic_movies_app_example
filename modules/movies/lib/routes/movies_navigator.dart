@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies/routes/movies_routes.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class MoviesNavigator {
   static const moviesHome = '/';
@@ -8,6 +9,7 @@ class MoviesNavigator {
 
   RouterConfig<Object> config() {
     final router = GoRouter(
+      observers: [SentryNavigatorObserver()],
       initialLocation: moviesHome,
       routes: [
         MoviesHomeGoRoute(

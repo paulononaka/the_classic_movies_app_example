@@ -28,6 +28,7 @@ This project follows a modular, scalable architecture:
 - **Dependency Injection**: Managed via `get_it`.
 - **Navigation**: Handled by `go_router`.
 - **Persistence**: Local storage is managed using [Hive](https://docs.hivedb.dev/).
+- **Error Monitoring**: Application errors and crashes are tracked using [Sentry](https://sentry.io).
 
 ## Libraries
 
@@ -37,6 +38,7 @@ This project follows a modular, scalable architecture:
 - **Persistence**: hive, hive_flutter
 - **Dev Tools**: melos, fvm
 - **Testing**: flutter_test, golden_toolkit
+- **Error Monitoring**: sentry_flutter
 
 ## Development Setup
 
@@ -97,3 +99,4 @@ The following environment variables are used:
 - `TMDB_API_KEY`: Your TMDB API key for authentication
 - `TMDB_BASE_URL`: Base URL for TMDB API requests (default: https://api.themoviedb.org/3)
 - `TMDB_IMAGE_URL`: Base URL for TMDB image requests (default: https://image.tmdb.org/t/p/)
+- `SENTRY_DSN`: Your Sentry DSN for error tracking and monitoring

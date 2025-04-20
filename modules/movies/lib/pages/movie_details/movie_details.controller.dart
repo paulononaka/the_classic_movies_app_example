@@ -28,8 +28,8 @@ class MovieDetailsController with ChangeNotifier {
       final response = await moviesRepository.fetchMovieDetails(context, movieId: movieId);
       movieDetail = response;
       _notifyMovieDetailsSuccess();
-    } on NetworkException catch (e, stacktrace) {
-      CMALogger.e('Network error while fetching movie details', ex: e, stacktrace: stacktrace);
+    } on NetworkException catch (e) {
+      CMALogger.d('Network error while fetching movie details');
       _notifyMovieDetailsError(e.message);
     } catch (ex, stacktrace) {
       CMALogger.e('Error while fetching movie details', ex: ex, stacktrace: stacktrace);

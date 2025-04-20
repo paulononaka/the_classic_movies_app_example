@@ -5,7 +5,13 @@ import 'package:movies/pages/movie_details/movie_details_page.dart';
 
 class MoviesHomeGoRoute extends GoRoute {
   MoviesHomeGoRoute({required super.path, required String super.name, super.routes})
-      : super(pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: MoviesPage.create()));
+      : super(
+          pageBuilder: (context, state) => MaterialPage(
+            key: state.pageKey,
+            name: MoviesNavigator.moviesHome,
+            child: MoviesPage.create(),
+          ),
+        );
 
   static void navigate(BuildContext context) {
     GoRouter.of(context).goNamed(MoviesNavigator.moviesHome);
@@ -19,6 +25,7 @@ class MovieDetailsGoRoute extends GoRoute {
             final movieId = int.parse(state.pathParameters['movieId'] ?? '0');
             return MaterialPage(
               key: state.pageKey,
+              name: MoviesNavigator.moviesDetails,
               child: MovieDetailsPage.create(movieId: movieId),
             );
           },
