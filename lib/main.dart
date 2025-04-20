@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     final navigator = dependencies.get<MoviesNavigator>();
 
     return ClassicMoviesThemeProviderApp(
-      themeMode: ThemeMode.light,
+      initialThemeMode: ThemeMode.light,
       builder: (themeMode, light, dark) => MaterialApp.router(
         title: 'Classic Movies App',
         theme: light,

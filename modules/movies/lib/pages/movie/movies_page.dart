@@ -87,7 +87,11 @@ class _MoviesPageState extends State<MoviesPage> {
           children: [
             const Icon(Icons.error_outline, color: Colors.red, size: 60),
             const SizedBox(height: 16),
-            Text(S.of(context)!.movies_page_error_message, style: const TextStyle(fontSize: 16), textAlign: TextAlign.center),
+            Text(
+              S.of(context)!.movies_page_error_message, 
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16),
+              textAlign: TextAlign.center
+            ),
           ],
         ),
       );
