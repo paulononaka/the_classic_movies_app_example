@@ -1,20 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:movies/data/data_sources/movies_remote_data_source_impl.dart';
 import 'package:movies/pages/movie/models/movie.model.dart';
 import 'package:movies/pages/movie/models/movies.model.dart';
-import 'package:movies/repositories/movies.repository.dart';
 
 import '../../helpers/mocks.dart';
 
 void main() {
   group('MoviesRepository Tests', () {
-    late MoviesRepository repository;
+    late MoviesRemoteDataSourceImpl repository;
     late DioMock mockDio;
 
     setUp(() {
       mockDio = DioMock();
-      repository = MoviesRepository(dio: mockDio, env: EnvMock());
+      repository = MoviesRemoteDataSourceImpl(dio: mockDio, env: EnvMock());
     });
 
     test('fetchMovies should return movies from API when page is 1', () async {

@@ -7,7 +7,7 @@ import 'package:core/env.dart';
 class MovieTile extends StatelessWidget {
   MovieTile({super.key, required this.movie, this.isLoading = false});
 
-  final navigator = dependencies.get<MoviesNavigator>();
+  final navigator = di.get<MoviesNavigator>();
   final MovieModel movie;
   final bool isLoading;
 
@@ -76,7 +76,7 @@ class MovieTilePoster extends StatelessWidget {
   MovieTilePoster({super.key, required this.movie});
 
   final MovieModel movie;
-  final env = dependencies.get<Env>();
+  final env = di.get<Env>();
 
   @override
   Widget build(BuildContext context) {

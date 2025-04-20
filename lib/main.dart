@@ -17,7 +17,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final navigator = dependencies.get<MoviesNavigator>();
+  final navigator = di.get<MoviesNavigator>();
 
   @override
   Widget build(BuildContext context) {

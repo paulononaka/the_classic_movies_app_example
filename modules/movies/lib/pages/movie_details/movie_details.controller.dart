@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
-import 'package:movies/repositories/movies.repository.dart';
+import 'package:movies/domain/repositories/movies_repository.dart';
 import 'models/movie_detail.model.dart';
 
 enum MovieDetailsControllerStatus {
@@ -16,7 +16,7 @@ enum MovieDetailsControllerStatus {
 class MovieDetailsController with ChangeNotifier {
   MovieDetailsController({required this.moviesRepository});
 
-  final MoviesRepository moviesRepository;
+  final IMoviesRepository moviesRepository;
   MovieDetailsControllerStatus status = MovieDetailsControllerStatus.loading;
   MovieDetailModel movieDetail = MovieDetailModel.empty();
 

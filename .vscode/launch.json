@@ -3,6 +3,7 @@
     "configurations": [
         {
             "name": "the_classic_movies_app_example",
+            "program": "lib/main.dart",
             "request": "launch",
             "type": "dart"
         },

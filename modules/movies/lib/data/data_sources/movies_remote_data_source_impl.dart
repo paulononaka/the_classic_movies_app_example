@@ -1,17 +1,18 @@
-import 'package:dio/dio.dart';
 import 'package:core/env.dart';
+import 'package:dio/dio.dart';
+import 'package:movies/domain/data_sources/movies_remote_data_source.dart';
+import 'package:movies/pages/movie/models/movies.model.dart';
 import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
 
-import '../pages/movie/models/movies.model.dart';
-
-class MoviesRepository {
-  MoviesRepository({required Dio dio, required Env env})
+class MoviesRemoteDataSourceImpl implements IMoviesRemoteDataSource {
+  MoviesRemoteDataSourceImpl({required Dio dio, required Env env})
       : _dio = dio,
         _env = env;
 
   final Dio _dio;
   final Env _env;
 
+  @override
   Future<MoviesModel> fetchMovies({int page = 1}) async {
     final response = await _dio.get(
       '${_env.tmdbBaseUrl}/discover/movie',
@@ -25,6 +26,7 @@ class MoviesRepository {
     return MoviesModel.fromJson(response.data);
   }
 
+  @override
   Future<MovieDetailModel> fetchMovieDetails({required int movieId}) async {
     final response = await _dio.get(
       '${_env.tmdbBaseUrl}/movie/$movieId',

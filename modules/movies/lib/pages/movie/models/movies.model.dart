@@ -1,9 +1,17 @@
+import 'package:hive/hive.dart';
 import 'movie.model.dart';
 
+part 'movies.model.g.dart';
+
+@HiveType(typeId: 0)
 class MoviesModel {
+  @HiveField(0)
   final int page;
+  @HiveField(1)
   final List<MovieModel> results;
+  @HiveField(2)
   final int totalPages;
+  @HiveField(3)
   final int totalResults;
 
   const MoviesModel({required this.page, required this.results, required this.totalPages, required this.totalResults});

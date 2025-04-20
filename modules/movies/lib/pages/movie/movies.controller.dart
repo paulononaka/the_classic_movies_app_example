@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
+import '../../domain/repositories/movies_repository.dart';
 import 'models/movie.model.dart';
-import '../../repositories/movies.repository.dart';
 
 enum MoviesControllerStatus {
   loading,
@@ -16,7 +16,7 @@ enum MoviesControllerStatus {
 class MoviesController with ChangeNotifier {
   MoviesController({required this.moviesRepository});
 
-  final MoviesRepository moviesRepository;
+  final IMoviesRepository moviesRepository;
   MoviesControllerStatus status = MoviesControllerStatus.loading;
   List<MovieModel> movies = [];
   int _currentPage = 0;

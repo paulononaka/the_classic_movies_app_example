@@ -7,7 +7,7 @@ class ProducedByTabWidget extends StatelessWidget {
   final MovieDetailModel movieDetail;
   ProducedByTabWidget({super.key, required this.movieDetail});
 
-  final env = dependencies.get<Env>();
+  final env = di.get<Env>();
 
   @override
   Widget build(BuildContext context) {

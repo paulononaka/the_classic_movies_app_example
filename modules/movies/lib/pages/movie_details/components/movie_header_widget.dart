@@ -34,7 +34,7 @@ class BackdropImageWidget extends StatelessWidget {
   BackdropImageWidget({super.key, required this.movieDetail});
 
   final MovieDetailModel movieDetail;
-  final env = dependencies.get<Env>();
+  final env = di.get<Env>();
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class MoviePosterWidget extends StatelessWidget {
   MoviePosterWidget({super.key, required this.movieDetail});
 
   final MovieDetailModel movieDetail;
-  final env = dependencies.get<Env>();
+  final env = di.get<Env>();
 
   @override
   Widget build(BuildContext context) {

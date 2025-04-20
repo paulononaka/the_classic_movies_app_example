@@ -40,3 +40,15 @@ scripts:
   l10n:
     run: melos exec --dir-exists=test -c 1 -- \
       flutter gen-l10n
+
+  gen:
+    run: melos exec -- "fvm flutter packages pub run build_runner build --delete-conflicting-outputs"
+    packageFilters:
+      flutter: true
+      fileExists: build.yaml
+
+  clean:
+    run: melos exec -- "fvm flutter packages pub run build_runner clean"
+    packageFilters:
+      flutter: true
+      fileExists: build.yaml

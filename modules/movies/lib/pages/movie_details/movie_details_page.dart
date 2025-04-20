@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
+import 'package:movies/domain/repositories/movies_repository.dart';
 import 'package:movies/pages/movie_details/components/movie_details_widget.dart';
 import 'package:movies/pages/movie_details/components/movie_header_widget.dart';
 import 'package:movies/pages/movie_details/components/tab_bar_widget.dart';
 import 'package:movies/pages/movie_details/components/tab_content_widget.dart';
-import 'package:movies/repositories/movies.repository.dart';
 import 'package:provider/provider.dart';
 import 'movie_details.controller.dart';
 import 'package:movies/l10n/s.dart';
@@ -16,7 +16,7 @@ class MovieDetailsPage extends StatefulWidget {
 
   static Widget create({required int movieId}) {
     return ChangeNotifierProvider(
-      create: (context) => MovieDetailsController(moviesRepository: dependencies.get<MoviesRepository>()),
+      create: (context) => MovieDetailsController(moviesRepository: di.get<IMoviesRepository>()),
       child: MovieDetailsPage(movieId: movieId),
     );
   }

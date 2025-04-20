@@ -1,32 +1,43 @@
+import 'package:hive/hive.dart';
+
+part 'movie_detail.model.g.dart';
+
+@HiveType(typeId: 2)
 class MovieDetailModel {
-  final bool adult;
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String title;
-  final String originalTitle;
+  @HiveField(2)
   final String backdropPath;
+  @HiveField(3)
   final String posterPath;
+  @HiveField(4)
   final String overview;
+  @HiveField(5)
   final String releaseDate;
+  @HiveField(6)
   final int runtime;
+  @HiveField(7)
   final double voteAverage;
-  final int voteCount;
+  @HiveField(8)
   final List<Genre> genres;
+  @HiveField(9)
   final String status;
+  @HiveField(10)
   final String tagline;
+  @HiveField(11)
   final List<ProductionCompany> productionCompanies;
 
   const MovieDetailModel({
-    required this.adult,
     required this.id,
     required this.title,
-    required this.originalTitle,
     required this.backdropPath,
     required this.posterPath,
     required this.overview,
     required this.releaseDate,
     required this.runtime,
     required this.voteAverage,
-    required this.voteCount,
     required this.genres,
     required this.status,
     required this.tagline,
@@ -35,17 +46,14 @@ class MovieDetailModel {
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) {
     return MovieDetailModel(
-      adult: json['adult'] ?? false,
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
-      originalTitle: json['original_title'] ?? '',
       backdropPath: json['backdrop_path'] ?? '',
       posterPath: json['poster_path'] ?? '',
       overview: json['overview'] ?? '',
       releaseDate: json['release_date'] ?? '',
       runtime: json['runtime'] ?? 0,
       voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
-      voteCount: json['vote_count'] ?? 0,
       genres: (json['genres'] as List<dynamic>?)?.map((e) => Genre.fromJson(e as Map<String, dynamic>)).toList() ?? [],
       status: json['status'] ?? '',
       tagline: json['tagline'] ?? '',
@@ -59,17 +67,14 @@ class MovieDetailModel {
 
   factory MovieDetailModel.empty() {
     return const MovieDetailModel(
-      adult: false,
       id: 0,
       title: '',
-      originalTitle: '',
       backdropPath: '',
       posterPath: '',
       overview: '',
       releaseDate: '',
       runtime: 0,
       voteAverage: 0.0,
-      voteCount: 0,
       genres: [],
       status: '',
       tagline: '',
@@ -79,10 +84,8 @@ class MovieDetailModel {
 
   factory MovieDetailModel.fixture() {
     return MovieDetailModel(
-      adult: false,
       id: 1197306,
       title: 'A Working Man',
-      originalTitle: 'A Working Man',
       backdropPath: '',
       posterPath: '',
       overview:
@@ -90,7 +93,6 @@ class MovieDetailModel {
       releaseDate: '2025-03-26',
       runtime: 116,
       voteAverage: 6.271,
-      voteCount: 321,
       genres: [
         Genre(id: 28, name: 'Action'),
         Genre(id: 80, name: 'Crime'),
@@ -116,8 +118,11 @@ class MovieDetailModel {
   }
 }
 
+@HiveType(typeId: 3)
 class Genre {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String name;
 
   Genre({
@@ -133,10 +138,15 @@ class Genre {
   }
 }
 
+@HiveType(typeId: 4)
 class ProductionCompany {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String logoPath;
+  @HiveField(3)
   final String originCountry;
 
   ProductionCompany({

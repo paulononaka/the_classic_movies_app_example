@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:movies/domain/repositories/movies_repository.dart';
 import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
-import 'package:movies/repositories/movies.repository.dart';
 import 'package:movies/pages/movie_details/movie_details_page.dart';
 import 'package:movies/routes/movies_navigator.dart';
 import '../../../../../test/helpers/golden_test_helper.dart';
@@ -23,7 +23,7 @@ void main() {
     GetIt.I
       ..registerFactory<MoviesNavigator>(() => MoviesNavigatorMock())
       ..registerFactory<Env>(() => EnvMock())
-      ..registerFactory<MoviesRepository>(() => repository);
+      ..registerFactory<IMoviesRepository>(() => repository);
   });
 
   tearDown(() => GetIt.I.reset());

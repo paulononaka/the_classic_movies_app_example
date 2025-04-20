@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
+import 'package:movies/domain/repositories/movies_repository.dart';
 import 'package:movies/movies.dart';
-import 'package:movies/repositories/movies.repository.dart';
 import 'package:provider/provider.dart';
 import 'package:design_system/design_system.dart';
 import 'package:core/env.dart';
@@ -14,7 +14,7 @@ class MoviesPage extends StatefulWidget {
 
   static Widget create() {
     return ChangeNotifierProvider(
-      create: (context) => MoviesController(moviesRepository: dependencies.get<MoviesRepository>()),
+      create: (context) => MoviesController(moviesRepository: di.get<IMoviesRepository>()),
       child: const MoviesPage(),
     );
   }
@@ -25,8 +25,8 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPageState extends State<MoviesPage> {
   final scrollController = ScrollController();
-  final navigator = dependencies.get<MoviesNavigator>();
-  final env = dependencies.get<Env>();
+  final navigator = di.get<MoviesNavigator>();
+  final env = di.get<Env>();
 
   @override
   void initState() {
