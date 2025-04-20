@@ -35,7 +35,7 @@ class MovieHeaderWidget extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withAlpha(204), // 0.8 opacity converted to alpha value (0.8 * 255 = 204)
+                      Colors.black.withAlpha(204),
                     ],
                   ),
                   borderRadius: const BorderRadius.only(

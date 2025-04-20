@@ -15,6 +15,12 @@ class SEs extends S {
   String get movies_page_title => 'Películas';
 
   @override
+  String get movies_page_genre_action => 'Acción';
+
+  @override
+  String get movies_page_minutes => 'minutos';
+
+  @override
   String get movies_page_error_message => 'Algo salió mal';
 
   @override

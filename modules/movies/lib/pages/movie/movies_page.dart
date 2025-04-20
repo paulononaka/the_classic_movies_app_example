@@ -3,8 +3,9 @@ import 'package:movies/dependencies.dart';
 import 'package:movies/movies.dart';
 import 'package:movies/repositories/movies.repository.dart';
 import 'package:provider/provider.dart';
+import 'package:design_system/design_system.dart';
 import '../../l10n/s.dart';
-import 'components/movie_tile.dart';
+import 'models/movie.model.dart';
 import 'movies.controller.dart';
 
 class MoviesPage extends StatefulWidget {
@@ -62,22 +63,28 @@ class _MoviesPageState extends State<MoviesPage> {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<MoviesController>();
+    final themeExtension = Theme.of(context).extension<ClassicMoviesAppThemeExtension>();
 
     return Scaffold(
-      appBar: AppBar(title: Text(S.of(context)!.movies_page_app_bar), backgroundColor: Theme.of(context).colorScheme.inversePrimary),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(padding: const EdgeInsets.all(16.0), child: Text(S.of(context)!.movies_page_title, style: Theme.of(context).textTheme.headlineMedium)),
-          Expanded(child: _buildContent(controller)),
-        ],
+      backgroundColor: themeExtension?.scaffoldBackground,
+      appBar: AppBar(
+        backgroundColor: themeExtension?.scaffoldBackground,
+        elevation: 0,
+        title: Text(
+          S.of(context)!.movies_page_title,
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
+        centerTitle: true,
       ),
+      body: _buildContent(controller),
     );
   }
 
   Widget _buildContent(MoviesController controller) {
+    final themeExtension = Theme.of(context).extension<ClassicMoviesAppThemeExtension>();
+
     if (controller.status.isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(child: CircularProgressIndicator(color: themeExtension?.primaryYellow));
     }
 
     if (controller.status.isError) {
@@ -87,11 +94,7 @@ class _MoviesPageState extends State<MoviesPage> {
           children: [
             const Icon(Icons.error_outline, color: Colors.red, size: 60),
             const SizedBox(height: 16),
-            Text(
-              S.of(context)!.movies_page_error_message, 
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16),
-              textAlign: TextAlign.center
-            ),
+            Text(S.of(context)!.movies_page_error_message, style: TextStyle(color: themeExtension?.textLight, fontSize: 16), textAlign: TextAlign.center),
           ],
         ),
       );
@@ -99,6 +102,7 @@ class _MoviesPageState extends State<MoviesPage> {
 
     return ListView.builder(
       controller: scrollController,
+      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
       itemCount: controller.movies.length + (controller.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
         if (index >= controller.movies.length) {
@@ -107,8 +111,25 @@ class _MoviesPageState extends State<MoviesPage> {
             child: Center(child: CircularProgressIndicator()),
           );
         }
-        return MovieTile(movie: controller.movies[index], isLoading: false);
+
+        final movie = controller.movies[index];
+        return _buildMovieListItem(movie);
       },
+    );
+  }
+
+  Widget _buildMovieListItem(MovieModel movie) {
+    final navigator = dependencies.get<MoviesNavigator>();
+    final releaseYear = movie.releaseDate.isNotEmpty ? movie.releaseDate.substring(0, 4) : '';
+    final posterUrl = movie.posterPath != null ? 'https://image.tmdb.org/t/p/w200${movie.posterPath}' : null;
+
+    return MovieListItem(
+      title: movie.title,
+      posterUrl: posterUrl,
+      rating: movie.voteAverage,
+      genre: S.of(context)!.movies_page_genre_action,
+      releaseYear: releaseYear,
+      onTap: () => navigator.navigateToMovieDetails(context, movie.id),
     );
   }
 }

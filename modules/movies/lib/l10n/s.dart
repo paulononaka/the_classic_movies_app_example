@@ -107,6 +107,18 @@ abstract class S {
   /// **'Movies'**
   String get movies_page_title;
 
+  /// No description provided for @movies_page_genre_action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get movies_page_genre_action;
+
+  /// No description provided for @movies_page_minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get movies_page_minutes;
+
   /// No description provided for @movies_page_error_message.
   ///
   /// In en, this message translates to:
