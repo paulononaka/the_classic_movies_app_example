@@ -5,6 +5,7 @@
   "movies_page_error_message": "Algo salió mal",
   "movies_page_genre_action": "Acción",
   "movies_page_minutes": "minutos",
+  "movies_page_no_movies": "No hay películas disponibles",
   "movie_details_error_loading": "Error al cargar los detalles",
   "movie_details_title": "Detalle",
   "movie_details_minutes": "Minutos",

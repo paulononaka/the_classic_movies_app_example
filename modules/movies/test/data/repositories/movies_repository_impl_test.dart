@@ -11,6 +11,10 @@ void main() {
   late MockMoviesRemoteDataSource mockRemoteDataSource;
   late MockMoviesLocalDataSource mockLocalDataSource;
 
+  setUpAll(() {
+    registerFallbackValue(BuildContextMock());
+  });
+
   setUp(() {
     mockRemoteDataSource = MockMoviesRemoteDataSource();
     mockLocalDataSource = MockMoviesLocalDataSource();
@@ -28,12 +32,12 @@ void main() {
       when(() => mockLocalDataSource.getMovies(page)).thenAnswer((_) async => moviesModel);
 
       // When
-      final result = await repository.fetchMovies(page: page);
+      final result = await repository.fetchMovies(BuildContextMock(), page: page);
 
       // Then
       expect(result, equals(moviesModel));
       verify(() => mockLocalDataSource.getMovies(page)).called(1);
-      verifyNever(() => mockRemoteDataSource.fetchMovies(page: page));
+      verifyNever(() => mockRemoteDataSource.fetchMovies(any(), page: page));
       verifyNever(() => mockLocalDataSource.cacheMovies(any(), any()));
     });
 
@@ -43,16 +47,16 @@ void main() {
       const page = 1;
 
       when(() => mockLocalDataSource.getMovies(page)).thenAnswer((_) async => null);
-      when(() => mockRemoteDataSource.fetchMovies(page: page)).thenAnswer((_) async => moviesModel);
+      when(() => mockRemoteDataSource.fetchMovies(any(), page: page)).thenAnswer((_) async => moviesModel);
       when(() => mockLocalDataSource.cacheMovies(moviesModel, page)).thenAnswer((_) async {});
 
       // When
-      final result = await repository.fetchMovies(page: page);
+      final result = await repository.fetchMovies(BuildContextMock(), page: page);
 
       // Then
       expect(result, equals(moviesModel));
       verify(() => mockLocalDataSource.getMovies(page)).called(1);
-      verify(() => mockRemoteDataSource.fetchMovies(page: page)).called(1);
+      verify(() => mockRemoteDataSource.fetchMovies(any(), page: page)).called(1);
       verify(() => mockLocalDataSource.cacheMovies(moviesModel, page)).called(1);
     });
 
@@ -63,16 +67,16 @@ void main() {
       const page = 1;
 
       when(() => mockLocalDataSource.getMovies(page)).thenAnswer((_) async => emptyMoviesModel);
-      when(() => mockRemoteDataSource.fetchMovies(page: page)).thenAnswer((_) async => remoteMoviesModel);
+      when(() => mockRemoteDataSource.fetchMovies(any(), page: page)).thenAnswer((_) async => remoteMoviesModel);
       when(() => mockLocalDataSource.cacheMovies(remoteMoviesModel, page)).thenAnswer((_) async {});
 
       // When
-      final result = await repository.fetchMovies(page: page);
+      final result = await repository.fetchMovies(BuildContextMock(), page: page);
 
       // Then
       expect(result, equals(remoteMoviesModel));
       verify(() => mockLocalDataSource.getMovies(page)).called(1);
-      verify(() => mockRemoteDataSource.fetchMovies(page: page)).called(1);
+      verify(() => mockRemoteDataSource.fetchMovies(any(), page: page)).called(1);
       verify(() => mockLocalDataSource.cacheMovies(remoteMoviesModel, page)).called(1);
     });
   });
@@ -86,12 +90,12 @@ void main() {
       when(() => mockLocalDataSource.getMovieDetails(movieId)).thenAnswer((_) async => movieDetailModel);
 
       // When
-      final result = await repository.fetchMovieDetails(movieId: movieId);
+      final result = await repository.fetchMovieDetails(BuildContextMock(), movieId: movieId);
 
       // Then
       expect(result, equals(movieDetailModel));
       verify(() => mockLocalDataSource.getMovieDetails(movieId)).called(1);
-      verifyNever(() => mockRemoteDataSource.fetchMovieDetails(movieId: movieId));
+      verifyNever(() => mockRemoteDataSource.fetchMovieDetails(any(), movieId: movieId));
       verifyNever(() => mockLocalDataSource.cacheMovieDetails(any()));
     });
 
@@ -101,16 +105,16 @@ void main() {
       final movieId = movieDetailModel.id;
 
       when(() => mockLocalDataSource.getMovieDetails(movieId)).thenAnswer((_) async => null);
-      when(() => mockRemoteDataSource.fetchMovieDetails(movieId: movieId)).thenAnswer((_) async => movieDetailModel);
+      when(() => mockRemoteDataSource.fetchMovieDetails(any(), movieId: movieId)).thenAnswer((_) async => movieDetailModel);
       when(() => mockLocalDataSource.cacheMovieDetails(movieDetailModel)).thenAnswer((_) async {});
 
       // When
-      final result = await repository.fetchMovieDetails(movieId: movieId);
+      final result = await repository.fetchMovieDetails(BuildContextMock(), movieId: movieId);
 
       // Then
       expect(result, equals(movieDetailModel));
       verify(() => mockLocalDataSource.getMovieDetails(movieId)).called(1);
-      verify(() => mockRemoteDataSource.fetchMovieDetails(movieId: movieId)).called(1);
+      verify(() => mockRemoteDataSource.fetchMovieDetails(any(), movieId: movieId)).called(1);
       verify(() => mockLocalDataSource.cacheMovieDetails(movieDetailModel)).called(1);
     });
   });

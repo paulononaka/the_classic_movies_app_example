@@ -5,8 +5,6 @@ import 'package:movies/l10n/s.dart' as movies_l10n;
 import 'package:design_system/l10n/s.dart' as design_system_l10n;
 
 class AppGoldenTester {
-  Future<void> setUpAll() async {}
-
   List<Device> get devices => [Device.iphone11];
 
   Widget appWrapper(final Widget widget) {

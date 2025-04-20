@@ -1,5 +1,6 @@
 import 'package:core/env.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movies/domain/data_sources/movies_local_data_source.dart';
@@ -15,6 +16,16 @@ class EnvMock extends Mock implements Env {
 
   @override
   String get tmdbBaseUrl => 'https://api.themoviedb.org/3';
+}
+
+class BuildContextMock extends Mock implements BuildContext {
+  @override
+  bool get mounted => true;
+}
+
+class BuildContextMockNotMounted extends Mock implements BuildContext {
+  @override
+  bool get mounted => false;
 }
 
 class DioMock extends Mock implements Dio {}

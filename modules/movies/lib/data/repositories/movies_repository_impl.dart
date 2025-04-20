@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:movies/domain/data_sources/movies_local_data_source.dart';
 import 'package:movies/domain/data_sources/movies_remote_data_source.dart';
 import 'package:movies/domain/repositories/movies_repository.dart';
@@ -13,27 +14,29 @@ class MoviesRepositoryImpl implements IMoviesRepository {
   final IMoviesLocalDataSource _localDataSource;
 
   @override
-  Future<MoviesModel> fetchMovies({int page = 1}) async {
+  Future<MoviesModel> fetchMovies(BuildContext context, {int page = 1}) async {
     final cachedMovies = await _localDataSource.getMovies(page);
 
     if (cachedMovies != null && cachedMovies.results.isNotEmpty) {
       return cachedMovies;
     }
 
-    final moviesModel = await _remoteDataSource.fetchMovies(page: page);
+    if (!context.mounted) return MoviesModel.empty();
+    final moviesModel = await _remoteDataSource.fetchMovies(context, page: page);
     await _localDataSource.cacheMovies(moviesModel, page);
     return moviesModel;
   }
 
   @override
-  Future<MovieDetailModel> fetchMovieDetails({required int movieId}) async {
+  Future<MovieDetailModel> fetchMovieDetails(BuildContext context, {required int movieId}) async {
     final cachedMovieDetail = await _localDataSource.getMovieDetails(movieId);
 
     if (cachedMovieDetail != null) {
       return cachedMovieDetail;
     }
 
-    final movieDetailModel = await _remoteDataSource.fetchMovieDetails(movieId: movieId);
+    if (!context.mounted) return MovieDetailModel.empty();
+    final movieDetailModel = await _remoteDataSource.fetchMovieDetails(context, movieId: movieId);
     await _localDataSource.cacheMovieDetails(movieDetailModel);
     return movieDetailModel;
   }

@@ -12,6 +12,10 @@ void main() {
     late MoviesRemoteDataSourceImpl repository;
     late DioMock mockDio;
 
+    setUpAll(() {
+      registerFallbackValue(BuildContextMock());
+    });
+
     setUp(() {
       mockDio = DioMock();
       repository = MoviesRemoteDataSourceImpl(dio: mockDio, env: EnvMock());
@@ -28,7 +32,7 @@ void main() {
           ));
 
       // When
-      final result = await repository.fetchMovies(page: 1);
+      final result = await repository.fetchMovies(BuildContextMock(), page: 1);
 
       // Then
       expect(result.page, equals(1));
@@ -54,7 +58,7 @@ void main() {
           ));
 
       // When
-      final result = await repository.fetchMovies(page: 2);
+      final result = await repository.fetchMovies(BuildContextMock(), page: 2);
 
       // Then
       expect(result.page, equals(2));
@@ -81,7 +85,7 @@ void main() {
           ));
 
       // When
-      final result = await repository.fetchMovies();
+      final result = await repository.fetchMovies(BuildContextMock());
 
       // Then
       expect(result.page, equals(1));
@@ -96,7 +100,7 @@ void main() {
           .thenThrow(DioException(requestOptions: RequestOptions(path: ''), error: 'API error'));
 
       // When/Then
-      expect(() => repository.fetchMovies(page: 1), throwsA(isA<Exception>()));
+      expect(() => repository.fetchMovies(BuildContextMockNotMounted()), throwsA(isA<Exception>()));
     });
   });
 }

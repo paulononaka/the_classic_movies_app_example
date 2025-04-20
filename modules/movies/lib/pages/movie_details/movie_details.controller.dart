@@ -14,21 +14,26 @@ enum MovieDetailsControllerStatus {
 }
 
 class MovieDetailsController with ChangeNotifier {
+  final IMoviesRepository moviesRepository;
+
   MovieDetailsController({required this.moviesRepository});
 
-  final IMoviesRepository moviesRepository;
   MovieDetailsControllerStatus status = MovieDetailsControllerStatus.loading;
   MovieDetailModel movieDetail = MovieDetailModel.empty();
+  String errorMessage = '';
 
-  Future<void> fetchMovieDetails(int movieId) async {
+  Future<void> fetchMovieDetails(BuildContext context, {required int movieId}) async {
     _notifyMovieDetailsLoading();
     try {
-      final response = await moviesRepository.fetchMovieDetails(movieId: movieId);
+      final response = await moviesRepository.fetchMovieDetails(context, movieId: movieId);
       movieDetail = response;
       _notifyMovieDetailsSuccess();
+    } on NetworkException catch (e, stacktrace) {
+      CMALogger.e('Network error while fetching movie details', ex: e, stacktrace: stacktrace);
+      _notifyMovieDetailsError(e.message);
     } catch (ex, stacktrace) {
       CMALogger.e('Error while fetching movie details', ex: ex, stacktrace: stacktrace);
-      _notifyMovieDetailsError();
+      _notifyMovieDetailsError('An error occurred while fetching movie details');
     }
   }
 
@@ -42,8 +47,9 @@ class MovieDetailsController with ChangeNotifier {
     notifyListeners();
   }
 
-  void _notifyMovieDetailsError() {
+  void _notifyMovieDetailsError([String message = '']) {
     status = MovieDetailsControllerStatus.error;
+    errorMessage = message;
     notifyListeners();
   }
 }

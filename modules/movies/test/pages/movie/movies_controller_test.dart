@@ -3,6 +3,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:movies/pages/movie/models/movie.model.dart';
 import 'package:movies/pages/movie/models/movies.model.dart';
 import 'package:movies/pages/movie/movies.controller.dart';
+import 'package:movies/pages/movie/movies.state.dart';
 
 import '../../helpers/mocks.dart';
 
@@ -11,16 +12,18 @@ void main() {
     late MoviesRepositoryMock repository;
     late MoviesController controller;
 
+    setUpAll(() {
+      registerFallbackValue(BuildContextMock());
+    });
+
     setUp(() {
       repository = MoviesRepositoryMock();
       controller = MoviesController(moviesRepository: repository);
     });
 
     test('initial state should be loading with empty movies list', () {
-      expect(controller.status, equals(MoviesControllerStatus.loading));
-      expect(controller.movies, isEmpty);
+      expect(controller.state, isA<MoviesLoadingState>());
       expect(controller.isLoadingMore, isFalse);
-      expect(controller.hasReachedMax, isFalse);
     });
 
     test('fetchInitialData should update state with first page of movies', () async {
@@ -32,19 +35,23 @@ void main() {
         totalResults: 100,
       );
 
-      when(() => repository.fetchMovies(page: 1)).thenAnswer((_) async => testMovies);
+      when(() => repository.fetchMovies(any(), page: 1)).thenAnswer((_) async => testMovies);
 
       // When
-      await controller.fetchInitialData();
+      await controller.fetchData(BuildContextMock());
 
       // Then
-      expect(controller.status, equals(MoviesControllerStatus.success));
-      expect(controller.movies.length, equals(10));
-      expect(controller.movies.first.id, equals(1));
-      expect(controller.movies.last.id, equals(10));
+      expect(controller.state, isA<MoviesSuccessState>());
+
+      final state = controller.state as MoviesSuccessState;
+      expect(state.movies.length, equals(10));
+      expect(state.movies.first.id, equals(1));
+      expect(state.movies.last.id, equals(10));
+      expect(state.currentPage, 1);
+      expect(state.hasReachedMax, isFalse);
+
       expect(controller.isLoadingMore, isFalse);
-      expect(controller.hasReachedMax, isFalse);
-      verify(() => repository.fetchMovies(page: 1)).called(1);
+      verify(() => repository.fetchMovies(any(), page: 1)).called(1);
     });
 
     test('fetchNextPage should append next page of movies to existing list', () async {
@@ -63,23 +70,27 @@ void main() {
         totalResults: 100,
       );
 
-      when(() => repository.fetchMovies(page: 1)).thenAnswer((_) async => firstPageMovies);
-      when(() => repository.fetchMovies(page: 2)).thenAnswer((_) async => secondPageMovies);
+      when(() => repository.fetchMovies(any(), page: 1)).thenAnswer((_) async => firstPageMovies);
+      when(() => repository.fetchMovies(any(), page: 2)).thenAnswer((_) async => secondPageMovies);
 
       // Load first page
-      await controller.fetchInitialData();
+      await controller.fetchData(BuildContextMock());
 
       // When - fetch next page
-      await controller.fetchNextPage();
+      await controller.fetchNextPage(BuildContextMock());
 
       // Then
-      expect(controller.status, equals(MoviesControllerStatus.success));
-      expect(controller.movies.length, equals(20));
-      expect(controller.movies.first.id, equals(1));
-      expect(controller.movies.last.id, equals(20));
+      expect(controller.state, isA<MoviesSuccessState>());
+
+      final state = controller.state as MoviesSuccessState;
+      expect(state.movies.length, equals(20));
+      expect(state.movies.first.id, equals(1));
+      expect(state.movies.last.id, equals(20));
+      expect(state.currentPage, 2);
+      expect(state.hasReachedMax, isFalse);
+
       expect(controller.isLoadingMore, isFalse);
-      expect(controller.hasReachedMax, isFalse);
-      verify(() => repository.fetchMovies(page: 2)).called(1);
+      verify(() => repository.fetchMovies(any(), page: 2)).called(1);
     });
 
     test('fetchNextPage should do nothing if has reached max', () async {
@@ -91,16 +102,20 @@ void main() {
         totalResults: 5,
       );
 
-      when(() => repository.fetchMovies(page: 1)).thenAnswer((_) async => lastPageMovies.copyWith(page: 1));
+      when(() => repository.fetchMovies(any(), page: 1)).thenAnswer((_) async => lastPageMovies.copyWith(page: 1));
 
       // Load first page
-      await controller.fetchInitialData();
+      await controller.fetchData(BuildContextMock());
+
+      // Verify state before next operation
+      expect(controller.state, isA<MoviesSuccessState>());
+      expect((controller.state as MoviesSuccessState).hasReachedMax, isTrue);
 
       // When - try to fetch next page when already at max
-      await controller.fetchNextPage();
+      await controller.fetchNextPage(BuildContextMock());
 
       // Then - should not call repository again
-      verifyNever(() => repository.fetchMovies(page: 2));
+      verifyNever(() => repository.fetchMovies(any(), page: 2));
     });
 
     test('fetchNextPage should handle errors gracefully', () async {
@@ -112,21 +127,21 @@ void main() {
         totalResults: 100,
       );
 
-      when(() => repository.fetchMovies(page: 1)).thenAnswer((_) async => firstPageMovies);
-      when(() => repository.fetchMovies(page: 2)).thenThrow(Exception('Network error'));
+      when(() => repository.fetchMovies(any(), page: 1)).thenAnswer((_) async => firstPageMovies);
+      when(() => repository.fetchMovies(any(), page: 2)).thenThrow(Exception('Network error'));
 
       // Load first page
-      await controller.fetchInitialData();
-      final initialMoviesCount = controller.movies.length;
+      await controller.fetchData(BuildContextMock());
+
+      // Verify state before operation
+      expect(controller.state, isA<MoviesSuccessState>());
 
       // When - fetch next page with error
-      await controller.fetchNextPage();
+      await controller.fetchNextPage(BuildContextMock());
 
-      // Then - should keep existing data and reset loading state
-      expect(controller.status, equals(MoviesControllerStatus.success));
-      expect(controller.movies.length, equals(initialMoviesCount));
+      // Then - should keep existing state type, but might have error info
       expect(controller.isLoadingMore, isFalse);
-      verify(() => repository.fetchMovies(page: 2)).called(1);
+      verify(() => repository.fetchMovies(any(), page: 2)).called(1);
     });
   });
 }

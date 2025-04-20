@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "connection_timeout": "Connection timeout. Please check your internet connection.",
+  "no_internet_connection": "No internet connection. Please check your network.",
+  "unauthorized_access": "Unauthorized access. Please check your API key.",
+  "resource_not_found": "Resource not found.",
+  "server_error": "Server error. Please try again later.",
+  "network_error_occurred": "Network error occurred. Please try again.",
+  "request_cancelled": "Request was cancelled."
+}

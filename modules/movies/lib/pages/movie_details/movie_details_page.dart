@@ -38,7 +38,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> with SingleTickerPr
 
   Future<void> _loadMovieData() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await context.read<MovieDetailsController>().fetchMovieDetails(widget.movieId);
+      await context.read<MovieDetailsController>().fetchMovieDetails(context, movieId: widget.movieId);
     });
   }
 
@@ -58,8 +58,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> with SingleTickerPr
           ? const LoadingWidget()
           : controller.status.isError
               ? AppErrorWidget(
-                  message: S.of(context)!.movie_details_error_loading,
-                  onRetry: () => controller.fetchMovieDetails(widget.movieId),
+                  message: controller.errorMessage.isNotEmpty ? controller.errorMessage : S.of(context)!.movie_details_error_loading,
+                  onRetry: () => controller.fetchMovieDetails(context, movieId: widget.movieId),
                   onBack: () => Navigator.of(context).pop(),
                 )
               : CustomScrollView(

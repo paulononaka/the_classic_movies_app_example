@@ -13,7 +13,9 @@ import '../../helpers/mocks.dart';
 void main() {
   final repository = MoviesRepositoryMock();
 
-  setUpAll(AppGoldenTester().setUpAll);
+  setUpAll(() {
+    registerFallbackValue(BuildContextMock());
+  });
 
   DeviceBuilder deviceBuilder() {
     return DeviceBuilder()..addScenario(widget: AppGoldenTester().appWrapper(MovieDetailsPage.create(movieId: 634649)));
@@ -33,7 +35,7 @@ void main() {
       // Given
       final testMovieDetail = MovieDetailModel.fixture();
 
-      when(() => repository.fetchMovieDetails(movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
+      when(() => repository.fetchMovieDetails(any(), movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());
@@ -46,7 +48,7 @@ void main() {
       // Given
       final testMovieDetail = MovieDetailModel.fixture();
 
-      when(() => repository.fetchMovieDetails(movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
+      when(() => repository.fetchMovieDetails(any(), movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());

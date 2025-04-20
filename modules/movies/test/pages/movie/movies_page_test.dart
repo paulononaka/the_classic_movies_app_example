@@ -20,7 +20,9 @@ void main() {
   final repository = MoviesRepositoryMock();
   late MoviesController controller;
 
-  setUpAll(AppGoldenTester().setUpAll);
+  setUpAll(() {
+    registerFallbackValue(BuildContextMock());
+  });
 
   setUp(() {
     controller = MoviesController(moviesRepository: MoviesRepositoryMock());
@@ -50,7 +52,7 @@ void main() {
   group('MoviesPage Tests', () {
     testGoldens('renders empty state', (tester) async {
       // Given
-      when(() => repository.fetchMovies()).thenAnswer((_) => Future.value(MoviesModel.empty()));
+      when(() => repository.fetchMovies(any())).thenAnswer((_) => Future.value(MoviesModel.empty()));
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());
@@ -72,7 +74,7 @@ void main() {
         totalResults: 2,
       );
 
-      when(() => repository.fetchMovies()).thenAnswer((_) => Future.value(testMovies));
+      when(() => repository.fetchMovies(any())).thenAnswer((_) => Future.value(testMovies));
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());
@@ -86,7 +88,7 @@ void main() {
 
     testGoldens('renders error state', (tester) async {
       // Given
-      when(() => repository.fetchMovies()).thenThrow(Exception('Network error'));
+      when(() => repository.fetchMovies(any())).thenThrow(Exception('Network error'));
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());
@@ -114,8 +116,8 @@ void main() {
         totalResults: 100,
       );
 
-      when(() => repository.fetchMovies(page: 1)).thenAnswer((_) async => firstPageMovies);
-      when(() => repository.fetchMovies(page: 2)).thenAnswer((_) async {
+      when(() => repository.fetchMovies(any(), page: 1)).thenAnswer((_) async => firstPageMovies);
+      when(() => repository.fetchMovies(any(), page: 2)).thenAnswer((_) async {
         await Future.delayed(const Duration(milliseconds: 100));
         return secondPageMovies;
       });
@@ -138,7 +140,7 @@ void main() {
 
       // Then - should show both pages
       expect(find.text('Test Movie 11'), findsOneWidget);
-      verify(() => repository.fetchMovies(page: 2)).called(1);
+      verify(() => repository.fetchMovies(any(), page: 2)).called(1);
       await screenMatchesGolden(tester, 'movies_page_second_page_loaded');
     });
   });

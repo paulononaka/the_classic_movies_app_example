@@ -4,6 +4,7 @@ import 'package:movies/dependencies.dart';
 import 'package:movies/domain/repositories/movies_repository.dart';
 import 'package:movies/l10n/s.dart';
 import 'package:movies/movies.dart';
+import 'package:movies/pages/movie/movies.state.dart';
 import 'package:provider/provider.dart';
 import 'package:core/env.dart';
 import 'models/movie.model.dart';
@@ -37,15 +38,16 @@ class _MoviesPageState extends State<MoviesPage> {
 
   Future<void> _loadInitialData() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await context.read<MoviesController>().fetchInitialData();
+      final controller = context.read<MoviesController>();
+      await controller.fetchData(context);
     });
   }
 
   void _setupScrollListener() {
     final controller = context.read<MoviesController>();
     scrollController.addListener(() {
-      if (_isScrollAtThreshold() && !controller.isLoadingMore && !controller.hasReachedMax) {
-        controller.fetchNextPage();
+      if (_isScrollAtThreshold() && !controller.isLoadingMore) {
+        controller.fetchNextPage(context);
       }
     });
   }
@@ -80,32 +82,28 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _buildContent(MoviesController controller) {
-    if (controller.status.isLoading) {
-      return const LoadingWidget();
-    }
+    final state = controller.state;
 
-    if (controller.status.isError) {
-      return AppErrorWidget(message: S.of(context)!.movies_page_error_message, onRetry: () => controller.fetchInitialData());
-    }
+    return switch (state) {
+      MoviesLoadingState() => const LoadingWidget(),
+      MoviesNetworkErrorState(message: final errorMessage) => AppErrorWidget(message: errorMessage, onRetry: () => controller.fetchData(context)),
+      MoviesErrorState() => AppErrorWidget(message: S.of(context)!.movies_page_error_message, onRetry: () => controller.fetchData(context)),
+      MoviesEmptyState() => EmptyStateWidget(message: S.of(context)!.movies_page_no_movies, icon: Icons.movie_outlined, onAction: () => controller.fetchData(context)),
+      MoviesSuccessState() => _buildMoviesList(controller, state),
+    };
+  }
 
-    if (controller.status.isEmpty) {
-      return EmptyStateWidget(
-        message: S.of(context)!.movies_page_no_movies,
-        icon: Icons.movie_outlined,
-        onAction: () => controller.fetchInitialData(),
-      );
-    }
-
+  Widget _buildMoviesList(MoviesController controller, MoviesSuccessState state) {
     return ListView.builder(
       controller: scrollController,
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-      itemCount: controller.movies.length + (controller.isLoadingMore ? 1 : 0),
+      itemCount: state.movies.length + (controller.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
-        if (index >= controller.movies.length) {
+        if (index >= state.movies.length) {
           return const Padding(padding: EdgeInsets.symmetric(vertical: 16.0), child: LoadingWidget());
         }
 
-        final movie = controller.movies[index];
+        final movie = state.movies[index];
         return _buildMovieListItem(movie);
       },
     );
