@@ -52,6 +52,3 @@ app.*.map.json
 
 # Environment variables
 **/.env
-
-# Flutter build runner generated files
-**/*.g.dart

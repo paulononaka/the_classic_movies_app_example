@@ -3,6 +3,9 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
     - "**/l10n"
+    - "**/*.g.dart"
+    - "lib/generated/**"
+    - "**/*.freezed.dart"
 linter:
   rules:
     sort_pub_dependencies: true
