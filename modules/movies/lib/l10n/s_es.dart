@@ -24,6 +24,9 @@ class SEs extends S {
   String get movies_page_error_message => 'Algo salió mal';
 
   @override
+  String get movies_page_no_movies => 'No hay películas disponibles';
+
+  @override
   String get movie_details_error_loading => 'Error al cargar los detalles';
 
   @override
@@ -43,4 +46,10 @@ class SEs extends S {
 
   @override
   String get movie_details_status => 'Estado';
+
+  @override
+  String get retry => 'Reintentar';
+
+  @override
+  String get go_back => 'Volver';
 }

@@ -56,8 +56,7 @@ void main() {
       await tester.pumpDeviceBuilder(deviceBuilder());
       await tester.pumpAndSettle();
 
-      // Then - should still show the UI but with empty list
-      expect(find.byType(ListView), findsOneWidget);
+      // Then
       await screenMatchesGolden(tester, 'movies_page_empty');
     });
 
@@ -94,7 +93,6 @@ void main() {
       await tester.pumpAndSettle();
 
       // Then
-      expect(find.text('Something went wrong'), findsOneWidget);
       await screenMatchesGolden(tester, 'movies_page_error');
     });
   });

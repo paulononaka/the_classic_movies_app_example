@@ -24,6 +24,9 @@ class SEn extends S {
   String get movies_page_error_message => 'Something went wrong';
 
   @override
+  String get movies_page_no_movies => 'No movies available';
+
+  @override
   String get movie_details_error_loading => 'Error loading details';
 
   @override
@@ -43,4 +46,10 @@ class SEn extends S {
 
   @override
   String get movie_details_status => 'Status';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get go_back => 'Go Back';
 }

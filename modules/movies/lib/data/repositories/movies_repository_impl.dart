@@ -5,10 +5,8 @@ import 'package:movies/pages/movie/models/movies.model.dart';
 import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
 
 class MoviesRepositoryImpl implements IMoviesRepository {
-  MoviesRepositoryImpl({
-    required IMoviesRemoteDataSource remoteDataSource,
-    required IMoviesLocalDataSource localDataSource,
-  })  : _remoteDataSource = remoteDataSource,
+  MoviesRepositoryImpl({required IMoviesRemoteDataSource remoteDataSource, required IMoviesLocalDataSource localDataSource})
+      : _remoteDataSource = remoteDataSource,
         _localDataSource = localDataSource;
 
   final IMoviesRemoteDataSource _remoteDataSource;

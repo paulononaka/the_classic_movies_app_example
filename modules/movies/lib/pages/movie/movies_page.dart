@@ -1,11 +1,11 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
 import 'package:movies/domain/repositories/movies_repository.dart';
+import 'package:movies/l10n/s.dart';
 import 'package:movies/movies.dart';
 import 'package:provider/provider.dart';
-import 'package:design_system/design_system.dart';
 import 'package:core/env.dart';
-import '../../l10n/s.dart';
 import 'models/movie.model.dart';
 import 'movies.controller.dart';
 
@@ -72,10 +72,7 @@ class _MoviesPageState extends State<MoviesPage> {
       appBar: AppBar(
         backgroundColor: themeExtension?.scaffoldBackground,
         elevation: 0,
-        title: Text(
-          S.of(context)!.movies_page_title,
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
+        title: Text(S.of(context)!.movies_page_title, style: Theme.of(context).appBarTheme.titleTextStyle),
         centerTitle: true,
       ),
       body: _buildContent(controller),
@@ -83,22 +80,19 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _buildContent(MoviesController controller) {
-    final themeExtension = Theme.of(context).extension<ClassicMoviesAppThemeExtension>();
-
     if (controller.status.isLoading) {
-      return Center(child: CircularProgressIndicator(color: themeExtension?.primaryYellow));
+      return const LoadingWidget();
     }
 
     if (controller.status.isError) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline, color: Colors.red, size: 60),
-            const SizedBox(height: 16),
-            Text(S.of(context)!.movies_page_error_message, style: TextStyle(color: themeExtension?.textLight, fontSize: 16), textAlign: TextAlign.center),
-          ],
-        ),
+      return AppErrorWidget(message: S.of(context)!.movies_page_error_message, onRetry: () => controller.fetchInitialData());
+    }
+
+    if (controller.status.isEmpty) {
+      return EmptyStateWidget(
+        message: S.of(context)!.movies_page_no_movies,
+        icon: Icons.movie_outlined,
+        onAction: () => controller.fetchInitialData(),
       );
     }
 
@@ -108,10 +102,7 @@ class _MoviesPageState extends State<MoviesPage> {
       itemCount: controller.movies.length + (controller.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
         if (index >= controller.movies.length) {
-          return const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return const Padding(padding: EdgeInsets.symmetric(vertical: 16.0), child: LoadingWidget());
         }
 
         final movie = controller.movies[index];

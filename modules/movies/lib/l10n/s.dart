@@ -125,6 +125,12 @@ abstract class S {
   /// **'Something went wrong'**
   String get movies_page_error_message;
 
+  /// No description provided for @movies_page_no_movies.
+  ///
+  /// In en, this message translates to:
+  /// **'No movies available'**
+  String get movies_page_no_movies;
+
   /// No description provided for @movie_details_error_loading.
   ///
   /// In en, this message translates to:
@@ -166,6 +172,18 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Status'**
   String get movie_details_status;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @go_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get go_back;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

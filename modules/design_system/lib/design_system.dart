@@ -7,3 +7,6 @@ export 'components/divider_widget.dart';
 export 'components/info_row.dart';
 export 'components/star_rating.dart';
 export 'components/movie_list_item.dart';
+export 'components/app_error_widget.dart';
+export 'components/loading_widget.dart';
+export 'components/empty_state_widget.dart';

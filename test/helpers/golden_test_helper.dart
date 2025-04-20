@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:movies/l10n/s.dart';
+import 'package:movies/l10n/s.dart' as movies_l10n;
+import 'package:design_system/l10n/s.dart' as design_system_l10n;
 
 class AppGoldenTester {
   Future<void> setUpAll() async {}
@@ -15,9 +16,10 @@ class AppGoldenTester {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      supportedLocales: S.supportedLocales,
+      supportedLocales: movies_l10n.S.supportedLocales,
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-        S.delegate,
+        movies_l10n.S.delegate,
+        design_system_l10n.S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

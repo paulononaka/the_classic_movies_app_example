@@ -6,10 +6,12 @@ import 'models/movie.model.dart';
 enum MoviesControllerStatus {
   loading,
   success,
+  empty,
   error;
 
   bool get isLoading => this == MoviesControllerStatus.loading;
   bool get isSuccess => this == MoviesControllerStatus.success;
+  bool get isEmpty => this == MoviesControllerStatus.empty;
   bool get isError => this == MoviesControllerStatus.error;
 }
 
@@ -33,7 +35,12 @@ class MoviesController with ChangeNotifier {
       final response = await moviesRepository.fetchMovies(page: _currentPage);
       movies = response.results;
       _hasReachedMax = _currentPage >= response.totalPages;
-      _notifyMoviesSuccess();
+      
+      if (movies.isEmpty) {
+        _notifyMoviesEmpty();
+      } else {
+        _notifyMoviesSuccess();
+      }
     } catch (ex, stacktrace) {
       CMALogger.e('Error while fetching initial movies data', ex: ex, stacktrace: stacktrace);
       _notifyMoviesError();
@@ -75,6 +82,11 @@ class MoviesController with ChangeNotifier {
 
   void _notifyMoviesError() {
     status = MoviesControllerStatus.error;
+    notifyListeners();
+  }
+
+  void _notifyMoviesEmpty() {
+    status = MoviesControllerStatus.empty;
     notifyListeners();
   }
 }

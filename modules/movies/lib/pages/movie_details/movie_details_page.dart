@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
 import 'package:movies/domain/repositories/movies_repository.dart';
@@ -54,9 +55,13 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> with SingleTickerPr
 
     return Scaffold(
       body: controller.status.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingWidget()
           : controller.status.isError
-              ? Center(child: Text(S.of(context)!.movie_details_error_loading, style: Theme.of(context).textTheme.bodyMedium))
+              ? AppErrorWidget(
+                  message: S.of(context)!.movie_details_error_loading,
+                  onRetry: () => controller.fetchMovieDetails(widget.movieId),
+                  onBack: () => Navigator.of(context).pop(),
+                )
               : CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(

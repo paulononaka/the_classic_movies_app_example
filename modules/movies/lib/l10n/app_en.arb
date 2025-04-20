@@ -11,5 +11,7 @@
   "movie_details_tab_about": "About Movie",
   "movie_details_tab_produced_by": "Produced By",
   "movie_details_overview": "Overview",
-  "movie_details_status": "Status"
+  "movie_details_status": "Status",
+  "retry": "Retry",
+  "go_back": "Go Back"
 }

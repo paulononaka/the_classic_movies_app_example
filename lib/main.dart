@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:movies/l10n/s.dart';
+import 'package:movies/l10n/s.dart' as movies_l10n;
+import 'package:design_system/l10n/s.dart' as design_system_l10n;
 import 'package:movies/dependencies.dart';
 import 'package:movies/movies.dart';
 import 'package:design_system/design_system.dart';
@@ -28,13 +29,14 @@ class MyApp extends StatelessWidget {
         theme: light,
         darkTheme: dark,
         themeMode: themeMode,
-        localizationsDelegates: const [
-          S.delegate,
+        localizationsDelegates: [
+          movies_l10n.S.delegate,
+          design_system_l10n.S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: S.supportedLocales,
+        supportedLocales: movies_l10n.S.supportedLocales,
         routerConfig: navigator.config(),
       ),
     );
