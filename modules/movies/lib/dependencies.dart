@@ -2,7 +2,7 @@ import 'package:core/env.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:movies/pages/movie/movies.repository.dart';
+import 'package:movies/repositories/movies.repository.dart';
 import 'package:movies/routes/movies_navigator.dart';
 
 final GetIt dependencies = GetIt.instance;

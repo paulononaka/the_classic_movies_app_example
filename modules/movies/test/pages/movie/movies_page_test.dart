@@ -6,7 +6,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:movies/pages/movie/models/movie.model.dart';
 import 'package:movies/pages/movie/models/movies.model.dart';
 import 'package:movies/pages/movie/movies.controller.dart';
-import 'package:movies/pages/movie/movies.repository.dart';
+import 'package:movies/repositories/movies.repository.dart';
 import 'package:movies/pages/movie/movies_page.dart';
 import 'package:movies/routes/movies_navigator.dart';
 import 'package:provider/provider.dart';

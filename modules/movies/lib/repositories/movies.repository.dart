@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:core/env.dart';
+import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
 
-import 'models/movies.model.dart';
+import '../pages/movie/models/movies.model.dart';
 
 class MoviesRepository {
   MoviesRepository({required Dio dio, required Env env})
@@ -22,5 +23,9 @@ class MoviesRepository {
     );
 
     return MoviesModel.fromJson(response.data);
+  }
+
+  Future<MovieDetailModel> fetchMovieDetails({required int movieId}) async {
+    return MovieDetailModel.fixture();
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/dependencies.dart';
 import 'package:movies/movies.dart';
-import 'package:movies/pages/movie/movies.repository.dart';
+import 'package:movies/repositories/movies.repository.dart';
 import 'package:provider/provider.dart';
 import '../../l10n/s.dart';
 import 'components/movie_tile.dart';

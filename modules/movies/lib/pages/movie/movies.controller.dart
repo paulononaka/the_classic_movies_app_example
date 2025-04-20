@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:core/core.dart';
 import 'models/movie.model.dart';
-import 'movies.repository.dart';
+import '../../repositories/movies.repository.dart';
 
 enum MoviesControllerStatus {
   loading,
@@ -42,18 +42,18 @@ class MoviesController with ChangeNotifier {
 
   Future<void> fetchNextPage() async {
     if (_isLoadingMore || _hasReachedMax) return;
-    
+
     _isLoadingMore = true;
     notifyListeners();
-    
+
     try {
       final nextPage = _currentPage + 1;
       final response = await moviesRepository.fetchMovies(page: nextPage);
-      
+
       _currentPage = nextPage;
       movies = [...movies, ...response.results];
       _hasReachedMax = _currentPage >= response.totalPages;
-      
+
       _isLoadingMore = false;
       notifyListeners();
     } catch (ex, stacktrace) {

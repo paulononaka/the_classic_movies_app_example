@@ -4,7 +4,7 @@ import 'package:movies/routes/movies_routes.dart';
 
 class MoviesNavigator {
   static const moviesHome = '/';
-  static const moviesDetails = '/details';
+  static const moviesDetails = '/details/:movieId';
 
   RouterConfig<Object> config() {
     final router = GoRouter(
@@ -13,7 +13,7 @@ class MoviesNavigator {
         MoviesHomeGoRoute(
           path: moviesHome,
           name: moviesHome,
-          routes: [MovieDetailsGoRoute(path: moviesDetails.substring(1), name: moviesDetails)],
+          routes: [MovieDetailsGoRoute(path: 'details/:movieId', name: moviesDetails)],
         ),
       ],
     );
@@ -21,7 +21,7 @@ class MoviesNavigator {
     return router;
   }
 
-  void navigateToMovieDetails(BuildContext context) {
-    MovieDetailsGoRoute.navigate(context);
+  void navigateToMovieDetails(BuildContext context, int movieId) {
+    MovieDetailsGoRoute.navigate(context, movieId);
   }
 }

@@ -14,9 +14,20 @@ class MoviesHomeGoRoute extends GoRoute {
 
 class MovieDetailsGoRoute extends GoRoute {
   MovieDetailsGoRoute({required super.path, required String super.name})
-      : super(pageBuilder: (context, state) => MaterialPage(key: state.pageKey, child: const MovieDetailsPage()));
+      : super(
+          pageBuilder: (context, state) {
+            final movieId = int.parse(state.pathParameters['movieId'] ?? '0');
+            return MaterialPage(
+              key: state.pageKey,
+              child: MovieDetailsPage.create(movieId: movieId),
+            );
+          },
+        );
 
-  static void navigate(BuildContext context) {
-    GoRouter.of(context).goNamed(MoviesNavigator.moviesDetails);
+  static void navigate(BuildContext context, int movieId) {
+    GoRouter.of(context).goNamed(
+      MoviesNavigator.moviesDetails,
+      pathParameters: {'movieId': movieId.toString()},
+    );
   }
 }

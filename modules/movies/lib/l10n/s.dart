@@ -112,6 +112,48 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Something went wrong'**
   String get movies_page_error_message;
+
+  /// No description provided for @movie_details_error_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading details'**
+  String get movie_details_error_loading;
+
+  /// No description provided for @movie_details_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail'**
+  String get movie_details_title;
+
+  /// No description provided for @movie_details_minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get movie_details_minutes;
+
+  /// No description provided for @movie_details_tab_about.
+  ///
+  /// In en, this message translates to:
+  /// **'About Movie'**
+  String get movie_details_tab_about;
+
+  /// No description provided for @movie_details_tab_cast.
+  ///
+  /// In en, this message translates to:
+  /// **'Cast'**
+  String get movie_details_tab_cast;
+
+  /// No description provided for @movie_details_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get movie_details_overview;
+
+  /// No description provided for @movie_details_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get movie_details_status;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

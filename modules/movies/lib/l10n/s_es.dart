@@ -16,4 +16,25 @@ class SEs extends S {
 
   @override
   String get movies_page_error_message => 'Algo salió mal';
+
+  @override
+  String get movie_details_error_loading => 'Error al cargar los detalles';
+
+  @override
+  String get movie_details_title => 'Detalle';
+
+  @override
+  String get movie_details_minutes => 'Minutos';
+
+  @override
+  String get movie_details_tab_about => 'Sobre la Película';
+
+  @override
+  String get movie_details_tab_cast => 'Reparto';
+
+  @override
+  String get movie_details_overview => 'Resumen';
+
+  @override
+  String get movie_details_status => 'Estado';
 }

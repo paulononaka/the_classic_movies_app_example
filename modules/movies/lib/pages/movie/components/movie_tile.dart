@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies/dependencies.dart';
+import 'package:movies/routes/movies_navigator.dart';
 import '../models/movie.model.dart';
 
 class MovieTile extends StatelessWidget {
@@ -13,21 +15,26 @@ class MovieTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 4, offset: Offset(0, 2))],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MovieTilePoster(movie: movie),
-          const SizedBox(width: 12),
-          MovieTileDetails(movie: movie),
-        ],
+    final navigator = dependencies.get<MoviesNavigator>();
+
+    return InkWell(
+      onTap: () => navigator.navigateToMovieDetails(context, movie.id),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 4, offset: Offset(0, 2))],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MovieTilePoster(movie: movie),
+            const SizedBox(width: 12),
+            MovieTileDetails(movie: movie),
+          ],
+        ),
       ),
     );
   }

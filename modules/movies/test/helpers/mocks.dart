@@ -1,7 +1,7 @@
 import 'package:core/env.dart';
 import 'package:dio/dio.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:movies/pages/movie/movies.repository.dart';
+import 'package:movies/repositories/movies.repository.dart';
 import 'package:movies/routes/movies_navigator.dart';
 
 class EnvMock extends Mock implements Env {

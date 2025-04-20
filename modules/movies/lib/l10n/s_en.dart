@@ -16,4 +16,25 @@ class SEn extends S {
 
   @override
   String get movies_page_error_message => 'Something went wrong';
+
+  @override
+  String get movie_details_error_loading => 'Error loading details';
+
+  @override
+  String get movie_details_title => 'Detail';
+
+  @override
+  String get movie_details_minutes => 'Minutes';
+
+  @override
+  String get movie_details_tab_about => 'About Movie';
+
+  @override
+  String get movie_details_tab_cast => 'Cast';
+
+  @override
+  String get movie_details_overview => 'Overview';
+
+  @override
+  String get movie_details_status => 'Status';
 }

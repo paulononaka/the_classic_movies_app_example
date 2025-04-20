@@ -2,5 +2,12 @@
   "@@locale": "en",
   "movies_page_app_bar": "Hello Movies",
   "movies_page_title": "Movies",
-  "movies_page_error_message": "Something went wrong"
+  "movies_page_error_message": "Something went wrong",
+  "movie_details_error_loading": "Error loading details",
+  "movie_details_title": "Detail",
+  "movie_details_minutes": "Minutes",
+  "movie_details_tab_about": "About Movie",
+  "movie_details_tab_cast": "Cast",
+  "movie_details_overview": "Overview",
+  "movie_details_status": "Status"
 }

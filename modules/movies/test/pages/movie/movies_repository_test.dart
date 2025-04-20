@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:movies/pages/movie/models/movie.model.dart';
 import 'package:movies/pages/movie/models/movies.model.dart';
-import 'package:movies/pages/movie/movies.repository.dart';
+import 'package:movies/repositories/movies.repository.dart';
 
 import '../../helpers/mocks.dart';
 
