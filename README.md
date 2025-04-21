@@ -37,7 +37,7 @@ This project follows a modular, scalable architecture:
 - **Internationalization**: intl
 - **Persistence**: hive, hive_flutter
 - **Dev Tools**: melos, fvm
-- **Testing**: flutter_test, golden_toolkit
+- **Testing**: flutter_test, golden_toolkit, mocktail
 - **Error Monitoring**: sentry_flutter
 
 ## Development Setup
@@ -84,6 +84,31 @@ melos gen
 # Using FVM
 fvm flutter run
 ```
+
+### Testing
+
+The project includes several types of tests:
+
+```bash
+# Run all tests in all packages
+melos tests
+
+# Run only unit test for the selected package
+melos test:ask
+```
+
+#### Unit Tests
+Unit tests verify the behavior of individual components in isolation.
+
+#### Golden Tests
+Golden tests validate UI components, their interactions and compare rendered widgets against reference images to detect visual regressions.
+
+#### E2E Tests
+End-to-End tests validate complete user flows through the application:
+- Happy path flows (browsing movies, viewing details, navigating between screens)
+- Error handling scenarios (network errors, retry mechanisms)
+
+E2E tests use mocked repositories to simulate different scenarios without requiring actual API calls.
 
 ### Environment Variables
 

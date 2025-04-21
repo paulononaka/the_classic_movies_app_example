@@ -30,12 +30,23 @@ dev_dependencies:
     sdk: flutter
   golden_toolkit: ^0.15.0
   melos: ^6.3.2
+  mocktail: ^1.0.4
 
 flutter:
   uses-material-design: true
   generate: true
   assets:
     - .env
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: fonts/Gilroy-Regular.ttf
+        - asset: fonts/Gilroy-Bold.ttf
+          weight: 700
+        - asset: fonts/Gilroy-Medium.ttf
+          weight: 500
+        - asset: fonts/Gilroy-Heavy.ttf
+          weight: 600
 
 flutter_intl:
   generate: true

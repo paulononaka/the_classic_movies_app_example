@@ -19,7 +19,7 @@ class ClassicMoviesAppTheme {
         iconTheme: IconThemeData(color: themeExtension.primaryYellow, size: 24),
         titleTextStyle: TextStyle(
           color: themeExtension.textLight, 
-          fontFamily: 'Montserrat',
+          fontFamily: 'Gilroy',
           fontWeight: FontWeight.w600,
           fontSize: 16
         ),
@@ -35,17 +35,17 @@ class ClassicMoviesAppTheme {
       tabBarTheme: TabBarTheme(
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white,
-        labelStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w500, fontSize: 14),
-        unselectedLabelStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: 'Gilroy', fontWeight: FontWeight.w500, fontSize: 14),
+        unselectedLabelStyle: const TextStyle(fontFamily: 'Gilroy', fontWeight: FontWeight.w400, fontSize: 14),
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(color: themeExtension.tabIndicator, width: 4), 
           insets: const EdgeInsets.symmetric(horizontal: 16)
         ),
       ),
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400),
-        bodyMedium: TextStyle(color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400),
-        titleLarge: TextStyle(color: Colors.white, fontFamily: 'Montserrat', fontWeight: FontWeight.w600, fontSize: 16),
+        bodyLarge: TextStyle(color: Colors.white, fontFamily: 'Gilroy', fontWeight: FontWeight.w400),
+        bodyMedium: TextStyle(color: Colors.white, fontFamily: 'Gilroy', fontWeight: FontWeight.w400),
+        titleLarge: TextStyle(color: Colors.white, fontFamily: 'Gilroy', fontWeight: FontWeight.w600, fontSize: 16),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -176,7 +176,7 @@ class ClassicMoviesAppTheme {
         iconTheme: IconThemeData(color: themeExtension.primaryYellow, size: 24),
         titleTextStyle: TextStyle(
           color: themeExtension.textLight, 
-          fontFamily: 'Montserrat',
+          fontFamily: 'Gilroy',
           fontWeight: FontWeight.w600,
           fontSize: 16
         ),
@@ -197,9 +197,9 @@ class ClassicMoviesAppTheme {
         unselectedLabelStyle: TextStyle(fontFamily: 'Gilroy', fontWeight: FontWeight.w500, fontSize: 14),
       ),
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400),
-        bodyMedium: TextStyle(color: Colors.white, fontFamily: 'Poppins', fontWeight: FontWeight.w400),
-        titleLarge: TextStyle(color: Colors.white, fontFamily: 'Montserrat', fontWeight: FontWeight.w600, fontSize: 16),
+        bodyLarge: TextStyle(color: Colors.white, fontFamily: 'Gilroy', fontWeight: FontWeight.w400),
+        bodyMedium: TextStyle(color: Colors.white, fontFamily: 'Gilroy', fontWeight: FontWeight.w400),
+        titleLarge: TextStyle(color: Colors.white, fontFamily: 'Gilroy', fontWeight: FontWeight.w600, fontSize: 16),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

@@ -45,15 +45,10 @@ class BackdropImageWidget extends StatelessWidget {
       height: 350,
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
         image: movieDetail.backdropPath.isNotEmpty
             ? DecorationImage(
-                image: NetworkImage(
-                  '${env.tmdbImageUrl}w500${movieDetail.backdropPath}',
-                ),
+                image: NetworkImage('${env.tmdbImageUrl}w500${movieDetail.backdropPath}'),
                 fit: BoxFit.cover,
               )
             : null,
@@ -64,15 +59,9 @@ class BackdropImageWidget extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withAlpha(102),
-              Colors.black.withAlpha(179),
-            ],
+            colors: [Colors.black.withAlpha(102), Colors.black.withAlpha(179)],
           ),
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16),
-          ),
+          borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(16), bottomRight: Radius.circular(16)),
         ),
       ),
     );
@@ -96,30 +85,12 @@ class TopNavigationBarWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withAlpha(76),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.amber,
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
+              decoration: BoxDecoration(color: Colors.black.withAlpha(76), borderRadius: BorderRadius.circular(20)),
+              child: IconButton(key: const Key('back_button'), icon: const Icon(Icons.arrow_back, color: Colors.amber), onPressed: () => Navigator.pop(context)),
             ),
             Container(
-              decoration: BoxDecoration(
-                color: Colors.black.withAlpha(76),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.bookmark_border,
-                  color: Colors.amber,
-                ),
-                onPressed: () {},
-              ),
+              decoration: BoxDecoration(color: Colors.black.withAlpha(76), borderRadius: BorderRadius.circular(20)),
+              child: IconButton(icon: const Icon(Icons.bookmark_border, color: Colors.amber), onPressed: () {}),
             ),
           ],
         ),
@@ -141,10 +112,7 @@ class RatingDisplayWidget extends StatelessWidget {
       right: 16,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: Colors.black.withAlpha(137),
-          borderRadius: BorderRadius.circular(8),
-        ),
+        decoration: BoxDecoration(color: Colors.black.withAlpha(137), borderRadius: BorderRadius.circular(8)),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -152,11 +120,7 @@ class RatingDisplayWidget extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               movieDetail.voteAverage.toStringAsFixed(1),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.amber,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.amber, fontSize: 12, fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -181,20 +145,11 @@ class MoviePosterWidget extends StatelessWidget {
         height: 180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(77),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-          ],
+          boxShadow: [BoxShadow(color: Colors.black.withAlpha(77), blurRadius: 10, offset: const Offset(0, 5))],
         ),
         clipBehavior: Clip.antiAlias,
         child: movieDetail.posterPath.isNotEmpty
-            ? Image.network(
-                '${env.tmdbImageUrl}w300${movieDetail.posterPath}',
-                fit: BoxFit.cover,
-              )
+            ? Image.network('${env.tmdbImageUrl}w300${movieDetail.posterPath}', fit: BoxFit.cover)
             : Container(color: Colors.grey.shade800),
       ),
     );
