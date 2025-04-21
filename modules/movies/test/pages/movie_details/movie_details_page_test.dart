@@ -1,4 +1,5 @@
 import 'package:core/env.dart';
+import 'package:core/services/feature_toggle_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
@@ -12,9 +13,11 @@ import '../../helpers/mocks.dart';
 
 void main() {
   final repository = MoviesRepositoryMock();
+  final featureToggleService = FeatureToggleServiceMock();
 
   setUpAll(() {
     registerFallbackValue(BuildContextMock());
+    registerFallbackValue(FeatureToggle.showRatingDisplay);
   });
 
   DeviceBuilder deviceBuilder() {
@@ -25,23 +28,39 @@ void main() {
     GetIt.I
       ..registerFactory<MoviesNavigator>(() => MoviesNavigatorMock())
       ..registerFactory<Env>(() => EnvMock())
-      ..registerFactory<IMoviesRepository>(() => repository);
+      ..registerFactory<IMoviesRepository>(() => repository)
+      ..registerFactory<FeatureToggleService>(() => featureToggleService);
   });
 
   tearDown(() => GetIt.I.reset());
 
   group('MovieDetailsPage Tests', () {
-    testGoldens('renders MovieDetailsPage correctly', (final tester) async {
+    testGoldens('renders MovieDetailsPage correctly with rating hidden', (final tester) async {
       // Given
       final testMovieDetail = MovieDetailModel.fixture();
 
       when(() => repository.fetchMovieDetails(any(), movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
+      when(() => featureToggleService.isFeatureEnabled(FeatureToggle.showRatingDisplay)).thenReturn(false);
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());
       await tester.pumpAndSettle();
 
-      await screenMatchesGolden(tester, 'movie_details_page');
+      await screenMatchesGolden(tester, 'movie_details_page_rating_hidden');
+    });
+
+    testGoldens('renders MovieDetailsPage correctly with rating displayed', (final tester) async {
+      // Given
+      final testMovieDetail = MovieDetailModel.fixture();
+
+      when(() => repository.fetchMovieDetails(any(), movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
+      when(() => featureToggleService.isFeatureEnabled(FeatureToggle.showRatingDisplay)).thenReturn(true);
+
+      // When
+      await tester.pumpDeviceBuilder(deviceBuilder());
+      await tester.pumpAndSettle();
+
+      await screenMatchesGolden(tester, 'movie_details_page_rating_displayed');
     });
 
     testGoldens('renders Produced By tab correctly', (final tester) async {
@@ -49,6 +68,7 @@ void main() {
       final testMovieDetail = MovieDetailModel.fixture();
 
       when(() => repository.fetchMovieDetails(any(), movieId: 634649)).thenAnswer((_) => Future.value(testMovieDetail));
+      when(() => featureToggleService.isFeatureEnabled(any())).thenReturn(false);
 
       // When
       await tester.pumpDeviceBuilder(deviceBuilder());

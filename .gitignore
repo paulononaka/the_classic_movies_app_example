@@ -6,6 +6,7 @@
 .DS_Store
 .atom/
 .build/
+ios/build/
 .buildlog/
 .history
 .svn/
@@ -52,3 +53,8 @@ app.*.map.json
 
 # Environment variables
 **/.env
+
+# Firebase
+**/android/app/google-services.json
+**/ios/Runner/GoogleService-Info.plist
+**/firebase.json

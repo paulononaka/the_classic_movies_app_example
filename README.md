@@ -100,3 +100,59 @@ The following environment variables are used:
 - `TMDB_BASE_URL`: Base URL for TMDB API requests (default: https://api.themoviedb.org/3)
 - `TMDB_IMAGE_URL`: Base URL for TMDB image requests (default: https://image.tmdb.org/t/p/)
 - `SENTRY_DSN`: Your Sentry DSN for error tracking and monitoring
+
+### Firebase Configuration
+
+This project uses Firebase for various features. To set up Firebase:
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+2. Add Android and iOS apps to your Firebase project
+3. Download the configuration files:
+   - `google-services.json` for Android
+   - `GoogleService-Info.plist` for iOS
+4. Place these files in their respective directories:
+   - Android: `android/app/google-services.json`
+   - iOS: `ios/Runner/GoogleService-Info.plist`
+5. Create a `firebase.json` file in the project root with your Firebase configuration
+6. Create a copy of `lib/firebase_options.dart.template` as `lib/firebase_options.dart` and replace the placeholder values with your Firebase configuration
+
+### GitHub Actions CI/CD
+
+This project uses GitHub Actions for CI/CD. To set up the required secrets for the pipeline:
+
+1. Go to your GitHub repository settings
+2. Navigate to Secrets and Variables > Actions
+3. Add the following secrets:
+   - `TMDB_API_KEY`: Your TMDB API key
+   - `TMDB_BASE_URL`: Base URL for TMDB API (e.g., https://api.themoviedb.org/3)
+   - `TMDB_IMAGE_URL`: Base URL for TMDB images (e.g., https://image.tmdb.org/t/p/)
+   - `GOOGLE_SERVICES_JSON`: The entire content of your `google-services.json` file (base64 encoded)
+   - `GOOGLE_SERVICE_INFO_PLIST`: The entire content of your `GoogleService-Info.plist` file (base64 encoded)
+   - `FIREBASE_JSON`: The entire content of your `firebase.json` file (base64 encoded)
+   - `FIREBASE_WEB_API_KEY`: Your Firebase Web API key
+   - `FIREBASE_WEB_APP_ID`: Your Firebase Web App ID
+   - `FIREBASE_ANDROID_API_KEY`: Your Firebase Android API key
+   - `FIREBASE_ANDROID_APP_ID`: Your Firebase Android App ID
+   - `FIREBASE_IOS_API_KEY`: Your Firebase iOS API key
+   - `FIREBASE_IOS_APP_ID`: Your Firebase iOS App ID
+   - `FIREBASE_IOS_BUNDLE_ID`: Your iOS Bundle ID
+   - `FIREBASE_MESSAGING_SENDER_ID`: Your Firebase Messaging Sender ID
+   - `FIREBASE_PROJECT_ID`: Your Firebase Project ID
+   - `FIREBASE_STORAGE_BUCKET`: Your Firebase Storage Bucket
+   - `FIREBASE_AUTH_DOMAIN`: Your Firebase Auth Domain
+   - `FIREBASE_MEASUREMENT_ID`: Your Firebase Measurement ID
+
+To encode your Firebase configuration files as base64:
+
+```bash
+# For Android
+base64 -i android/app/google-services.json | pbcopy
+
+# For iOS
+base64 -i ios/Runner/GoogleService-Info.plist | pbcopy
+
+# For firebase.json
+base64 -i firebase.json | pbcopy
+```
+
+This will copy the base64-encoded content to your clipboard, which you can then paste as the value for the corresponding GitHub Secret.

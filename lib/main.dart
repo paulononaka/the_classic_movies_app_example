@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:core/l10n/s.dart' as core_l10n;
@@ -8,6 +9,7 @@ import 'package:movies/movies.dart';
 import 'package:design_system/design_system.dart';
 import 'package:core/core.dart';
 import 'package:get_it/get_it.dart';
+import 'package:the_classic_movies_app_example/firebase_options.dart';
 
 final GetIt di = GetIt.instance;
 
@@ -15,6 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Env.load();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await SentryService.initialize(() async {
     await DSDependencies().init();

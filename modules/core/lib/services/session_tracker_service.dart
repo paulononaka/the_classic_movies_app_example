@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:core/mca_logger.dart';
+import 'package:core/logger/mca_logger.dart';
 
 class SessionTrackerService {
   static final SessionTrackerService _instance = SessionTrackerService._();

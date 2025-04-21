@@ -3,15 +3,18 @@ import 'package:movies/dependencies.dart';
 import 'package:movies/pages/movie_details/components/movie_title_widget.dart';
 import 'package:movies/pages/movie_details/components/tag_line_widget.dart';
 import 'package:movies/pages/movie_details/models/movie_detail.model.dart';
-import 'package:core/env.dart';
+import 'package:core/core.dart';
 
 class MovieHeaderWidget extends StatelessWidget {
-  const MovieHeaderWidget({super.key, required this.movieDetail});
+  MovieHeaderWidget({super.key, required this.movieDetail});
 
   final MovieDetailModel movieDetail;
+  final featureToggleService = di.get<FeatureToggleService>();
 
   @override
   Widget build(BuildContext context) {
+    final showRating = featureToggleService.isFeatureEnabled(FeatureToggle.showRatingDisplay);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,7 +23,7 @@ class MovieHeaderWidget extends StatelessWidget {
           children: [
             BackdropImageWidget(movieDetail: movieDetail),
             TopNavigationBarWidget(context: context),
-            RatingDisplayWidget(movieDetail: movieDetail, context: context),
+            if (showRating) RatingDisplayWidget(movieDetail: movieDetail, context: context),
             MoviePosterWidget(movieDetail: movieDetail),
           ],
         ),

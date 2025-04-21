@@ -1,5 +1,5 @@
 import 'package:core/env.dart';
-import 'package:core/session_tracker_service.dart';
+import 'package:core/services/session_tracker_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';

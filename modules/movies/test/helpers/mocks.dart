@@ -1,5 +1,6 @@
 import 'package:core/env.dart';
-import 'package:core/session_tracker_service.dart';
+import 'package:core/services/feature_toggle_service.dart';
+import 'package:core/services/session_tracker_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
@@ -35,6 +36,8 @@ class SessionTrackerServiceMock extends Mock implements SessionTrackerService {
 }
 
 class DioMock extends Mock implements Dio {}
+
+class FeatureToggleServiceMock extends Mock implements FeatureToggleService {}
 
 class MockMovieDetailsBox extends Mock implements Box<MovieDetailModel> {}
 
