@@ -16,7 +16,6 @@ final GetIt di = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Env.load();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await SentryService.initialize(() async {

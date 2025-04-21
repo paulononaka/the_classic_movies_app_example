@@ -38,10 +38,9 @@ The Classic Movies App was built to demonstrate how to build solid architectural
 
 ### Areas for Improvement
 - **Image caching**: No proper image caching strategy implemented.
-- **Environment variables in CI/CD**: Environment variables need to be properly passed using dart-define in the CI/CD pipeline and potentially encrypted for security.
-- **Web platform issues**: Web platform stopped working and requires further investigation.
+- **Environment variables**: Although we are using dart-define, environment variables could be encrypted for more security.
 - **Favorites functionality**: The feature to mark and save favorite movies is not yet implemented.
-- **CI/CD release pipeline**: The release process is not automated in the CI/CD pipeline.
+- **CI/CD release pipeline**: The release process is not automated in the CI/CD pipeline for Android and iOS.
 
 ## Technical Rationale for Current Implementation
 
@@ -60,3 +59,17 @@ The Classic Movies App was built to demonstrate how to build solid architectural
 ### Dependency Injection
 - **Rationale**: Facilitates testability and loose coupling between components.
 - **Implementation**: GetIt service locator with proper registration of dependencies at application startup.
+
+### Environment Variables Strategy
+- **Rationale**: Secure handling of sensitive configuration data without relying on environment files.
+- **Implementation**: Using Dart's `--dart-define` feature to pass environment variables at build/run time.
+- **Benefits**:
+  - No environment files needed in the codebase
+  - Variables are compiled into the binary and not easily extractable
+  - Different values can be used for different environments (dev, staging, prod)
+  - CI/CD pipelines can inject secrets without storing them in the repository
+- **Usage**:
+  - In code: `const String.fromEnvironment('VARIABLE_NAME', defaultValue: 'fallback')`
+  - Command line: `flutter run --dart-define=VARIABLE_NAME=value`
+  - VS Code: Variables defined in launch.json
+  - CI/CD: Variables passed as arguments to build commands

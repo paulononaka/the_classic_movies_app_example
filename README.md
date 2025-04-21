@@ -6,14 +6,36 @@ The "good old" example app with movies, good code, and Flutter magic.
 
 ```
 the_classic_movies_app_example/
-├── apps/
-│   └── main_app/            # Main Flutter app entry point
-├── packages/
+├── android/                 # Android platform-specific code
+├── ios/                     # iOS platform-specific code
+├── lib/                     # Main Flutter app entry point
+│   └── l10n/                # Localization resources
+├── modules/
 │   ├── core/                # Core utilities, services, and shared logic
+│   │   └── lib/
+│   │       ├── exceptions/  # Custom exception handling
+│   │       ├── extensions/  # Dart extensions
+│   │       ├── l10n/        # Localization resources
+│   │       ├── logger/      # Logging functionality
+│   │       └── services/    # Core services (feature toggles, Sentry, session tracking)
 │   ├── design_system/       # UI components, themes, and design tokens
+│   │   └── lib/
+│   │       ├── components/  # Reusable UI components
+│   │       ├── l10n/        # Localization resources
+│   │       └── theme/       # App theming and styling
 │   └── movies/              # Movies feature module (data, domain, presentation)
-├── .env.example             # Example environment variables
-├── melos.yaml               # Melos workspace configuration
+│       ├── lib/
+│       │   ├── data/        # Data layer (data sources, repositories implementations)
+│       │   ├── domain/      # Domain layer (interfaces, business logic)
+│       │   ├── infrastructure/ # Infrastructure setup (dependencies, services)
+│       │   ├── l10n/        # Localization resources
+│       │   ├── pages/       # UI screens and controllers
+│       │   └── routes/      # Navigation routes
+│       └── test/            # Module-specific tests
+├── test/                    # Test directory
+│   ├── e2e/                 # End-to-end tests
+│   └── helpers/             # Test helpers
+├── web/                     # Web platform-specific code
 ├── pubspec.yaml             # Project dependencies
 └── README.md
 ```
@@ -114,19 +136,43 @@ E2E tests use mocked repositories to simulate different scenarios without requir
 
 ### Environment Variables
 
-This project uses environment variables for configuration. To set them up:
+This project uses Dart define for environment variables. Environment variables are passed at build/run time:
 
-1. Copy the `.env.example` file to create a `.env` file:
-   ```bash
-   cp .env.example .env
-   ```
-2. Edit the `.env` file and replace `your_tmdb_api_key` with your actual TMDB API key
+```bash
+flutter run --dart-define=TMDB_API_KEY=your_tmdb_api_key
+```
+
+For VS Code users, the launch configuration in `.vscode/launch.json` already includes all necessary environment variables.
+
+For command line usage, you can create a `.env.sh` script to run the app with all environment variables:
+
+```bash
+#!/bin/bash
+flutter run \
+  --dart-define=TMDB_API_KEY=your_tmdb_api_key \
+  --dart-define=TMDB_BASE_URL=https://api.themoviedb.org/3 \
+  --dart-define=TMDB_IMAGE_URL=https://image.tmdb.org/t/p/ \
+  # Add other environment variables as needed
+```
 
 The following environment variables are used:
 - `TMDB_API_KEY`: Your TMDB API key for authentication
 - `TMDB_BASE_URL`: Base URL for TMDB API requests (default: https://api.themoviedb.org/3)
 - `TMDB_IMAGE_URL`: Base URL for TMDB image requests (default: https://image.tmdb.org/t/p/)
 - `SENTRY_DSN`: Your Sentry DSN for error tracking and monitoring
+- `FIREBASE_WEB_API_KEY`: Your Firebase Web API key
+- `FIREBASE_WEB_APP_ID`: Your Firebase Web App ID
+- `FIREBASE_AUTH_DOMAIN`: Your Firebase Auth Domain
+- `FIREBASE_MEASUREMENT_ID`: Your Firebase Measurement ID
+- `FIREBASE_ANDROID_API_KEY`: Your Firebase Android API key
+- `FIREBASE_ANDROID_APP_ID`: Your Firebase Android App ID
+- `FIREBASE_IOS_API_KEY`: Your Firebase iOS API key
+- `FIREBASE_IOS_APP_ID`: Your Firebase iOS App ID
+- `FIREBASE_IOS_BUNDLE_ID`: Your iOS Bundle ID
+- `FIREBASE_PROJECT_ID`: Your Firebase Project ID (used for web deployment)
+- `FIREBASE_MESSAGING_SENDER_ID`: Your Firebase Messaging Sender ID
+- `FIREBASE_STORAGE_BUCKET`: Your Firebase Storage Bucket
+- `FIREBASE_SERVICE_ACCOUNT`: Your Firebase Service Account for GitHub Actions deployment
 
 ### Firebase Configuration
 
