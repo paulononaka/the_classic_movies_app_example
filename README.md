@@ -30,6 +30,8 @@ This project follows a modular, scalable architecture:
 - **Persistence**: Local storage is managed using [Hive](https://docs.hivedb.dev/).
 - **Error Monitoring**: Application errors and crashes are tracked using [Sentry](https://sentry.io).
 
+For a more detailed technical analysis, check the [Technical Notes](docs/Technical_Notes.md) and the [Architecture Diagram](docs/diagram.png) for a comprehensive overview of the implementation.
+
 ## Libraries
 
 - **Navigation**: go_router
