@@ -2,6 +2,17 @@
 
 The "good old" example app with movies, good code, and Flutter magic.
 
+## Live Demo
+
+A web-deployed version of the app is available at: https://the-classic-movies-app-example.web.app/
+
+This live demo is automatically deployed by the CI/CD pipeline using [GitHub Actions](https://github.com/paulononaka/the_classic_movies_app_example/actions/workflows/main.yaml).
+
+## Screenshots
+
+![Screenshot 1](docs/screenshot1.png)
+![Screenshot 2](docs/screenshot2.png)
+
 ### File Structure
 
 ```
